@@ -7,14 +7,24 @@
   "author": "nick@drawbotics.com",
   "license": "MIT",
   "scripts": {
+    "clean": "rimraf dist/",
+    "build:commonjs": "babel src --out-dir dist/",
+    "build": "npm run clean && npm run build:commonjs",
     "start": "node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "update-locale": "npm start"
+    "test": "mocha --compilers js:babel-core/register --reporter spec test/"
   },
   "dependencies": {
-
+    "babel-polyfill": "^6.23.0",
+    "directory-tree": "^1.2.0",
+    "rimraf": "^2.6.1"
   },
   "devDependencies": {
-
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }
