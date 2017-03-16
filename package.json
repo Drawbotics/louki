@@ -11,11 +11,13 @@
     "build:commonjs": "babel src --out-dir dist/",
     "build": "npm run clean && npm run build:commonjs",
     "start": "node src/app.js",
-    "test": "npm run build && mocha --compilers js:babel-core/register --reporter spec test/"
+    "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "directory-tree": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.4",
     "rimraf": "^2.6.1"
   },
   "devDependencies": {
