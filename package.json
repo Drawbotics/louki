@@ -1,0 +1,20 @@
+{
+  "name": "localeawesome",
+  "version": "0.0.1",
+  "description": "Simple JavaScript tool to manage locales",
+  "main": "index.js",
+  "repository": "https://github.com/Drawbotics/localeawesome.git",
+  "author": "nick@drawbotics.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "update-locale": "npm start"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+
+  }
+}
