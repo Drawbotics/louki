@@ -7,27 +7,32 @@ import awesome from '../../src';
 
 describe('AWESOME EXAMPLE', function() {
 
-  const rootFolder = 'mock/config/sections';
   const targetFolder = 'mock/dist';
-  const en = fs.readFileSync(path.resolve(__dirname, 'en.yml'), 'utf8');
 
-  before(function() {
-  });
-
-  describe('after calling the main function', function() {
-    it('the generated yml file should contain all contents of the folders', function() {
+  describe('awesome(rootFolder)', function() {
+    describe('when the structure is complex, contains single keys, multiple folders', function() {
+      const rootFolder = 'mock/config/full/sections';
       const fullRootPath = path.resolve(__dirname, rootFolder);
-      const fullTargetPath = path.resolve(__dirname, targetFolder);
-      expect(awesome(fullRootPath, fullTargetPath)).to.equal(en);
+
+      let en;
+      before(function() {
+        en = fs.readFileSync(path.resolve(__dirname, 'en.yml'), 'utf8');
+      });
+      it('the generated yml file should contain all contents of the rootFolder', function() {
+        expect(awesome(fullRootPath)).to.equal(en);
+      });
     });
-    // it('should run the main function again when encountering a manifest', function() {
-    //
-    // });
-    // it('the loop should stop when no manifest is present and return its contents', function() {
-    //
-    // });
-    // it('should simply return a string key when a folder is not defined (with {{ }})', function() {
-    //
-    // });
+    describe('whem the structure is the most simple i.e. only 1 yml file at the root', function() {
+      const rootFolder = 'mock/config/simple';
+      const fullRootPath = path.resolve(__dirname, rootFolder);
+
+      let en;
+      before(function() {
+        en = fs.readFileSync(path.resolve(__dirname, 'mock/config/simple/index.yml'), 'utf8');
+      });
+      it('the generated yml file should contain all contents of the rootFolder', function() {
+        expect(awesome(fullRootPath)).to.equal(en);
+      });
+    });
   });
 });
