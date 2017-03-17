@@ -7,32 +7,6 @@ import awesome from '../../src';
 
 describe('AWESOME EXAMPLE', function() {
 
-  const targetFolder = 'mock/dist';
-
-  describe('awesome(rootFolder)', function() {
-    describe('when the structure is complex, contains single keys, multiple folders', function() {
-      const rootFolder = 'mock/config/full/sections';
-      const fullRootPath = path.resolve(__dirname, rootFolder);
-
-      let en;
-      before(function() {
-        en = fs.readFileSync(path.resolve(__dirname, 'en.yml'), 'utf8');
-      });
-      it('the generated yml file should contain all contents of the rootFolder', function() {
-        expect(awesome(fullRootPath)).to.equal(en);
-      });
-    });
-    describe('whem the structure is the most simple i.e. only 1 yml file at the root', function() {
-      const rootFolder = 'mock/config/simple';
-      const fullRootPath = path.resolve(__dirname, rootFolder);
-
-      let en;
-      before(function() {
-        en = fs.readFileSync(path.resolve(__dirname, 'mock/config/simple/index.yml'), 'utf8');
-      });
-      it('the generated yml file should contain all contents of the rootFolder', function() {
-        expect(awesome(fullRootPath)).to.equal(en);
-      });
-    });
+  describe('awesome(command)', function() {
   });
 });

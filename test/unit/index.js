@@ -1,3 +1,3 @@
 describe('UNIT TESTS', function() {
-  require('./app');
+  require('./from-folders');
 });
