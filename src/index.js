@@ -13,12 +13,12 @@ import fromFolders from './from-folders';
 
 
 // remember to add try catch for file operations
-function update(rootFolder, targetFolder) {
+function update(rootFolder, targetFile) {
   const finalTranslation = fromFolders(rootFolder);
-  const fileName = 'en.yml';  // this file should be set as default somewhere
+  // const fileName = 'en.yml';  // this file should be set as default somewhere
 
   try {
-    fs.writeFileSync(`${targetFolder}/${fileName}`, finalTranslation);
+    fs.writeFileSync(targetFile, finalTranslation);
   }
   catch (err) {
     console.error(err);
@@ -34,8 +34,8 @@ function pull() {
 
 }
 
-export default function awesome(command, rootFolder, targetFolder='') {
+export default function awesome(command, rootFolder, targetFile='') {
   if (command === 'update') {
-    return update(rootFolder, targetFolder);
+    return update(rootFolder, targetFile);
   }
 }
