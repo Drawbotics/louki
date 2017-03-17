@@ -7,8 +7,6 @@ function dirTree(dirPath, extensions) {
   const name = path.basename(dirPath);
   const item = { path: dirPath, name };
 
-  // console.log(dirPath);
-
   let stats;
   try {
     stats = fs.statSync(dirPath);

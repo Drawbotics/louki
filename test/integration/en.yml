@@ -1,0 +1,15 @@
+order:
+  an_estate:
+    items: The items are great
+    id: Identification
+    products:
+      visit3d: 3D Visit
+      interior: Interior 3D
+    buttons: Buttons
+  quick_services:
+    quick: Veloce
+    service: 'Servizio %{ciao}'
+studio:
+  zone: Zone
+  highlight_area: Highlighted area
+user: the user of life (shared between order and studio)

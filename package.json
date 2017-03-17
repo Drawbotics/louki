@@ -17,6 +17,7 @@
     "babel-polyfill": "^6.23.0",
     "directory-tree": "^1.2.0",
     "fs": "^0.0.1-security",
+    "js-yaml": "^3.8.2",
     "lodash": "^4.17.4",
     "rimraf": "^2.6.1"
   },
