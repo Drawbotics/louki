@@ -26,16 +26,24 @@ function update(rootFolder, targetFile) {
   return finalTranslation;
 }
 
-function push() {
-
+function push(rootFolder, targetFile) {
+  update(rootFolder, targetFile);
+  // do some promise thing and then...
+  // command to push to localeapp (only the target file)
 }
 
 function pull() {
-
+  
 }
 
-export default function awesome(command, rootFolder, targetFile='') {
+export default function awesome(command, rootFolder, target='', defaultLocale='en') {  // this must be set somewhere
   if (command === 'update') {
-    return update(rootFolder, targetFile);
+    return update(rootFolder, target);
+  }
+  else if (command === 'push') {
+    return push(rootFolder, target);
+  }
+  else if (command === 'pull') {
+    return pull(rootFolder, target, defaultLocale);  // here the target is the target folder
   }
 }

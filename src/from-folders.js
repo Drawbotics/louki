@@ -1,13 +1,12 @@
 import path from 'path';
 import { find, isEmpty } from 'lodash';
-import yaml from 'js-yaml';
 
 import getSectionsTree from './get-sections-tree';
+import { ymlToJson, jsonToYml } from './utils';
 
 
 function parseTree(rootFolder) {
-  const tree = getSectionsTree(rootFolder);
-  const { children } = tree;
+  const { children } = getSectionsTree(rootFolder);
 
   const manifestFile = find(children, { extension: 'json' });
   let final = {};
@@ -45,14 +44,6 @@ function parseTree(rootFolder) {
   }
 
   return final;
-}
-
-function jsonToYml(json) {
-  return yaml.safeDump(json);
-}
-
-function ymlToJson(yml) {
-  return yaml.safeLoad(yml);
 }
 
 export default function fromFolders(rootFolder) {
