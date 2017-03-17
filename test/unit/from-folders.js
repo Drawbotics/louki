@@ -7,8 +7,6 @@ import fromFolders from '../../src/from-folders';
 
 describe('FROM FOLDERS EXAMPLE', function() {
 
-  const targetFolder = '../mock/dist';
-
   describe('fromFolders(rootFolder)', function() {
     describe('when the structure is complex, contains single keys, multiple folders', function() {
       const rootFolder = '../mock/config/full/sections';
