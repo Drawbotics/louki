@@ -7,5 +7,5 @@ export function jsonToYml(json) {
 
 
 export function ymlToJson(yml) {
-  return yaml.safeLoad(yml);
+  return yaml.safeLoad(yml, null, null, 'JSON_SCHEMA');
 }
