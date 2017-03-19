@@ -1,6 +1,5 @@
 {
   "order": "{{order}}",
   "studio": "{{studio}}",
-  "user": "the user of life (shared between order and studio)",
-  "another_common_key": "hola"
+  "user": "the user of life"
 }

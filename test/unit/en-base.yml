@@ -12,10 +12,9 @@ order:
     quick: Veloce
     service: 'Servizio %{ciao}'
     haha: fsdflkj
-  simple_key: Thefirst simple key
-  another_key: theo ther keeeey
+  another_key: theo ther e
 studio:
   zone: Zone
   highlight_area: Highlighted area
   hola: Lalala
-user: the user of life (shared between order and studio)
+user: the user of life

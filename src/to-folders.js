@@ -13,6 +13,7 @@ function parseTranslation(json, rootFolder) {
 
   if (manifestFile) {
     const manifest = JSON.parse(manifestFile.content);
+    const newJson = {};
 
     for (const key in manifest) {
       if (manifest.hasOwnProperty(key)) {
@@ -20,19 +21,33 @@ function parseTranslation(json, rootFolder) {
         const matchExample = val.match(/{{(.*)}}/);
 
         if ( ! isEmpty(matchExample)) {
+          // add to new json
+          Object.assign(newJson, {
+            [key]: val,
+          });
+
           const folder = matchExample[1];
           parseTranslation(json[key], `${rootFolder}/${folder}`);
+          json = omit(json, key);   // deletes the folder key so that we are
+                                    // left with only with simple keys
+        }
 
-          // if the key defines a folder, remove it from the json, so that
-          // it does not overried it with all the translations
-          json = omit(json, key);
+        else {
+          // we have to check if the key is still in the json, if it is replace
+          // the contents
+          if (json[key]) {
+            Object.assign(newJson, {
+              [key]: json[key],
+            });
+
+            json = omit(json, key);
+          }
         }
       }
     }
 
-    // after the loop to update files, we merge the two "manifests"
-    const newJson = Object.assign(manifest, json);
-    console.log(newJson);
+    // now we are left only with simple keys, so add them to the manifest (newJson)
+    Object.assign(newJson, json);
     fs.writeFile(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2), (err) => {
       if (err) throw err;
     });
