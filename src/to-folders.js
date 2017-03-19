@@ -1,5 +1,5 @@
 import path from 'path';
-import { find, isEmpty } from 'lodash';
+import { find, isEmpty, omit, cloneDeep } from 'lodash';
 import fs from 'fs';
 
 import getSectionsTree from './get-sections-tree';
@@ -8,11 +8,12 @@ import { ymlToJson, jsonToYml } from './utils';
 
 function parseTranslation(json, rootFolder) {
   const { children } = getSectionsTree(rootFolder);
-
   const manifestFile = find(children, { extension: 'json' });
+
 
   if (manifestFile) {
     const manifest = JSON.parse(manifestFile.content);
+
     for (const key in manifest) {
       if (manifest.hasOwnProperty(key)) {
         const val = manifest[key];
@@ -20,22 +21,26 @@ function parseTranslation(json, rootFolder) {
 
         if ( ! isEmpty(matchExample)) {
           const folder = matchExample[1];
-          // console.log(key, folder);
+          parseTranslation(json[key], `${rootFolder}/${folder}`);
 
-          parseTranslation(json[key], `${rootFolder}/${folder}`)
-        }
-
-        else {
-          // console.log('a simple key', key, val);
+          // if the key defines a folder, remove it from the json, so that
+          // it does not overried it with all the translations
+          json = omit(json, key);
         }
       }
     }
+
+    // after the loop to update files, we merge the two "manifests"
+    const newJson = Object.assign(manifest, json);
+    console.log(newJson);
+    fs.writeFile(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2), (err) => {
+      if (err) throw err;
+    });
   }
+  // now replace the rest in the manifest
   else {
-    console.log("there is no manifest, so replace contents", rootFolder);
     fs.writeFile(`${rootFolder}/index.yml`, jsonToYml(json), (err) => {
       if (err) throw err;
-      console.log('It\'s saved!');
     });
   }
 }
