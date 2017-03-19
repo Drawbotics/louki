@@ -10,7 +10,6 @@ function parseTranslation(json, rootFolder) {
   const { children } = getSectionsTree(rootFolder);
   const manifestFile = find(children, { extension: 'json' });
 
-
   if (manifestFile) {
     const manifest = JSON.parse(manifestFile.content);
     const newJson = {};
@@ -21,7 +20,6 @@ function parseTranslation(json, rootFolder) {
         const matchExample = val.match(/{{(.*)}}/);
 
         if ( ! isEmpty(matchExample)) {
-          // add to new json
           Object.assign(newJson, {
             [key]: val,
           });
@@ -33,8 +31,6 @@ function parseTranslation(json, rootFolder) {
         }
 
         else {
-          // we have to check if the key is still in the json, if it is replace
-          // the contents
           if (json[key]) {
             Object.assign(newJson, {
               [key]: json[key],
