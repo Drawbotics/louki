@@ -1,5 +1,6 @@
 import path from 'path';
 import { find, isEmpty } from 'lodash';
+import fs from 'fs';
 
 import getSectionsTree from './get-sections-tree';
 import { ymlToJson, jsonToYml } from './utils';
@@ -19,19 +20,24 @@ function parseTranslation(json, rootFolder) {
 
         if ( ! isEmpty(matchExample)) {
           const folder = matchExample[1];
-          console.log(key, folder);
-          
+          // console.log(key, folder);
+
           parseTranslation(json[key], `${rootFolder}/${folder}`)
         }
 
         else {
-          console.log(key, val);
+          // console.log('a simple key', key, val);
         }
       }
     }
   }
-
-  return '';
+  else {
+    console.log("there is no manifest, so replace contents", rootFolder);
+    fs.writeFile(`${rootFolder}/index.yml`, jsonToYml(json), (err) => {
+      if (err) throw err;
+      console.log('It\'s saved!');
+    });
+  }
 }
 
 export default function toFolders(rootFolder, target) {

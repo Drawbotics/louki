@@ -1,2 +1,3 @@
 quick: Veloce
-service: Servizio %{ciao}
+service: 'Servizio %{ciao}'
+haha: fsdflkj

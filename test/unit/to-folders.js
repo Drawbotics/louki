@@ -9,7 +9,7 @@ describe('TO FOLDERS EXAMPLE', () => {
   describe('toFolders(rootFolder, target)', () => {
     describe('when the structure is complex', () => {
       const rootFolder = '../mock/config/generated/sections';
-      const targetFile = 'en.yml';
+      const targetFile = 'en-base.yml';
       const rootPath = path.resolve(__dirname, rootFolder);
       const targetFilePath = path.resolve(__dirname, targetFile);
 
