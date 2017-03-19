@@ -18,14 +18,15 @@ describe('AWESOME EXAMPLE', () => {
       before(() => {
         desiredTranslation = fs.readFileSync(desiredFile, 'utf8');
       });
-      it('the update command should take the contents of the root folder and replace them in the dist', function() {
+      it('the update command should take the contents of the root folder and replace them in the dist', () => {
         const targetTranslation = awesome('update', rootFolder, targetFile);
         expect(targetTranslation).to.equal(desiredTranslation);
       });
     });
 
     describe('awesome(pull, root, target)', () => {
-      it('the pull command should pull from localeapp, replace the contents of the dist folder (with the new translations)')
+
+      it('the pull command should pull from localeapp, replace the contents of the dist folder');
     });
   });
 });

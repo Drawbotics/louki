@@ -7,20 +7,32 @@ import toFolders from '../../src/to-folders';
 
 describe('TO FOLDERS EXAMPLE', () => {
   describe('toFolders(rootFolder, target)', () => {
-    describe('when the structure is complex', () => {
-      const rootFolder = '../mock/config/generated/sections';
-      const targetFile = 'en-base.yml';
-      const rootPath = path.resolve(__dirname, rootFolder);
-      const targetFilePath = path.resolve(__dirname, targetFile);
+    const rootFolder = '../mock/config/generated/sections';
+    const targetFile = 'en-base.yml';
+    const rootPath = path.resolve(__dirname, rootFolder);
+    const targetFilePath = path.resolve(__dirname, targetFile);
 
-      let en;
-      before(function() {
-        en = fs.readFileSync(targetFilePath, 'utf8');
-      });
+    const targetManifest = '../mock/config/generated/sections/manifest.json';
+    const targetManifestPath = path.resolve(__dirname, targetManifest);
 
-      it('should take the contents of the target file and split them into the source folders', () => {
-        const res = toFolders(rootPath, en);
-      });
+    let en;
+    let desiredManifest;
+    let desiredQuick;
+    before(() => {
+      en = fs.readFileSync(targetFilePath, 'utf8');
+      desiredManifest = {
+        "order": "{{order}}",
+        "studio": "{{studio}}",
+        "user": "the user of life"
+      };
     });
+
+    it('should take the contents of the target file and update the manifests (root)', () => {
+      toFolders(rootPath, en);
+      const updatedManifest = fs.readFileSync(targetManifestPath, 'utf8');
+      // expect(JSON.parse(updatedManifest)).to.equal(desiredManifest);
+      console.log('1', updatedManifest, '2', desiredManifest);
+    });
+
   });
 });

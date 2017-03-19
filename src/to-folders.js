@@ -57,7 +57,5 @@ function parseTranslation(json, rootFolder) {
 }
 
 export default function toFolders(rootFolder, target) {
-  const res = parseTranslation(ymlToJson(target), rootFolder);
-  console.log(res);
-  return '';
+  parseTranslation(ymlToJson(target), rootFolder);
 }
