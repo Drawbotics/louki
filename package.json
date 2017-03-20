@@ -19,10 +19,14 @@
     "localeawesome": "./bin/localeawesome"
   },
   "babel": {
-    "presets": ["es2015", "stage-0"]
+    "presets": [
+      "es2015",
+      "stage-0"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
+    "commander": "^2.9.0",
     "directory-tree": "^1.2.0",
     "fs": "^0.0.1-security",
     "js-yaml": "^3.8.2",

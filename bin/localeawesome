@@ -1,3 +1,21 @@
 #! /usr/bin/env node
 
-require('../dist/index.js');
+var localeawesome = require('../dist/index.js');
+var program = require('commander');
+
+program
+  // .command('mycommand')
+  .arguments('<cmd>')
+  .action(function (cmd) {
+    cmdValue = cmd;
+  })
+  // .option('-up, --update', 'To update the compiled default locale (without pushing)')
+  // .option('-ps, --push', 'To push to localeapp using the bash command??')
+  // .option('-pl, --pull', 'To pull from localeapp and update all files (compiled and src)')
+  .parse(process.argv);
+
+if (typeof cmdValue === 'undefined') {
+  console.error('no command given!');
+  process.exit(1);
+}
+console.log('command:', cmdValue);
