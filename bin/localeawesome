@@ -2,6 +2,7 @@
 
 var localeawesome = require('../dist/index.js');
 var program = require('commander');
+var path = require('path');
 
 program
   // .command('mycommand')
@@ -9,9 +10,9 @@ program
   .action(function (cmd) {
     cmdValue = cmd;
   })
-  // .option('-up, --update', 'To update the compiled default locale (without pushing)')
-  // .option('-ps, --push', 'To push to localeapp using the bash command??')
-  // .option('-pl, --pull', 'To pull from localeapp and update all files (compiled and src)')
+  .command('update', 'To update the compiled default locale (without pushing)')
+  .command('push', 'To push to localeapp using the bash command??')
+  .command('pull', 'To pull from localeapp and update all files (compiled and src)')
   .parse(process.argv);
 
 if (typeof cmdValue === 'undefined') {
@@ -19,3 +20,5 @@ if (typeof cmdValue === 'undefined') {
   process.exit(1);
 }
 console.log('command:', cmdValue);
+
+console.log(path.resolve(__dirname, '../'));
