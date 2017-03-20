@@ -14,10 +14,10 @@ import toFolders from './to-folders';
 
 
 // remember to add try catch for file operations
-function update(rootFolder, targetFile) {
-  const finalTranslation = fromFolders(rootFolder);
+function update(rootFolder, targetPath, locale) {
+  const finalTranslation = fromFolders(rootFolder, locale);
   try {
-    fs.writeFileSync(targetFile, finalTranslation);
+    fs.writeFileSync(`${targetPath}/${locale}.yml`, finalTranslation);   // file type is hardcoded for now
   }
   catch (err) {
     console.error(err);
@@ -25,25 +25,30 @@ function update(rootFolder, targetFile) {
   return finalTranslation;
 }
 
-function push(rootFolder, targetFile) {
+function push(rootFolder, targetPath, locale) {
   update(rootFolder, targetFile);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
 }
 
-function pull(rootFolder, targetFile, locale) {
-  const updatedFolders = toFolders(rootFolder, targetFile, locale);
+function pull(rootFolder, targetPath, locale) {
+  const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
+  const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
   return updatedFolders;
 }
 
-export default function awesome(command, rootFolder, target='', defaultLocale='en') {  // this must be set somewhere
+export default function awesome(command, rootFolder, targetPath, defaultLocale='en') {  // this must be set somewhere
   if (command === 'update') {
-    return update(rootFolder, target);
+    return update(rootFolder, targetPath, defaultLocale);
   }
   else if (command === 'push') {
-    return push(rootFolder, target);
+    return push(rootFolder, targetPath, defaultLocale);
   }
   else if (command === 'pull') {
-    return pull(rootFolder, target, defaultLocale);  // here the target is the target folder
+    return pull(rootFolder, targetPath, defaultLocale);
+  }
+  else {
+    console.error('Command not found');
+    return;
   }
 }

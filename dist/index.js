@@ -29,36 +29,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 **/
 
 // remember to add try catch for file operations
-function update(rootFolder, targetFile) {
-  var finalTranslation = (0, _fromFolders2.default)(rootFolder);
+function update(rootFolder, targetPath, locale) {
+  var finalTranslation = (0, _fromFolders2.default)(rootFolder, locale);
   try {
-    _fs2.default.writeFileSync(targetFile, finalTranslation);
+    _fs2.default.writeFileSync(targetPath + '/' + locale + '.yml', finalTranslation); // file type is hardcoded for now
   } catch (err) {
     console.error(err);
   }
   return finalTranslation;
 }
 
-function push(rootFolder, targetFile) {
+function push(rootFolder, targetPath, locale) {
   update(rootFolder, targetFile);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
 }
 
-function pull(rootFolder, targetFile, locale) {
-  var updatedFolders = (0, _toFolders2.default)(rootFolder, targetFile, locale);
+function pull(rootFolder, targetPath, locale) {
+  var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
+  var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
   return updatedFolders;
 }
 
-function awesome(command, rootFolder) {
-  var target = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+function awesome(command, rootFolder, targetPath) {
   var defaultLocale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'en';
   // this must be set somewhere
   if (command === 'update') {
-    return update(rootFolder, target);
+    return update(rootFolder, targetPath, defaultLocale);
   } else if (command === 'push') {
-    return push(rootFolder, target);
+    return push(rootFolder, targetPath, defaultLocale);
   } else if (command === 'pull') {
-    return pull(rootFolder, target, defaultLocale); // here the target is the target folder
+    return pull(rootFolder, targetPath, defaultLocale);
+  } else {
+    console.error('Command not found');
+    return;
   }
 }

@@ -7,9 +7,9 @@ import toFolders from '../../src/to-folders';
 
 
 describe('TO FOLDERS EXAMPLE', () => {
-  describe('toFolders(rootFolder, target)', () => {
+  describe('toFolders(rootFolder, target, locale)', () => {
     const rootFolder = '../mock/config/generated/sections';
-    const targetFile = 'en-to.yml';
+    const targetFile = 'en_to.yml';
     const rootPath = path.resolve(__dirname, rootFolder);
     const targetFilePath = path.resolve(__dirname, targetFile);
 
@@ -31,7 +31,7 @@ describe('TO FOLDERS EXAMPLE', () => {
     });
 
     it('should take the contents of the target file and update the manifests (root)', () => {
-      const sections = toFolders(rootPath, en);
+      const sections = toFolders(rootPath, en, 'en_to');
       const updatedManifest = get(sections, 'manifest');
       const updatedQuick = get(sections, 'order.quick-services.index');
       expect(updatedManifest).to.deep.equal(desiredManifest);

@@ -89,6 +89,7 @@ function parseTranslation(json, rootFolder) {
   return final;
 }
 
-function toFolders(rootFolder, target) {
-  return parseTranslation((0, _utils.ymlToJson)(target), rootFolder);
+function toFolders(rootFolder, target, locale) {
+  var strippedTarget = (0, _utils.ymlToJson)(target)[locale];
+  return parseTranslation(strippedTarget, rootFolder);
 }

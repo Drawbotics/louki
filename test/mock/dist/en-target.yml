@@ -1,24 +1,25 @@
-order:
-  an_estate:
-    items: The items are great
-    id: Identification
-    products:
-      visit3d: 3D Visit
-      interior: Interior 3D
-    buttons: Buttons
-  quick_services:
-    quick: Veloce
-    service: 'Servizio %{ciao}'
-  simple_key: Thefirst simple key
-  another_key: theo ther keeeey
-studio:
-  zone: Zone
-  highlight_area: Highlighted area
-  user: null
-back_office:
-  back_key_1: First key
-  back_key_2: Second key
-  key_group:
-    first: First
-    second: Second
-user: the user of life (shared between order and studio)
+en-target:
+  order:
+    an_estate:
+      items: The items are great
+      id: Identification
+      products:
+        visit3d: 3D Visit
+        interior: Interior 3D
+      buttons: Buttons
+    quick_services:
+      quick: Veloce
+      service: 'Servizio %{ciao}'
+    simple_key: Thefirst simple key
+    another_key: theo ther keeeey
+  studio:
+    zone: Zone
+    highlight_area: Highlighted area
+    user: null
+  back_office:
+    back_key_1: First key
+    back_key_2: Second key
+    key_group:
+      first: First
+      second: Second
+  user: the user of life (shared between order and studio)
