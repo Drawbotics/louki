@@ -1,6 +1,7 @@
 import fs from 'fs';
 
 import fromFolders from './from-folders';
+import toFolders from './to-folders';
 
 /**
   AVAILABLE COMMANDS:
@@ -15,8 +16,6 @@ import fromFolders from './from-folders';
 // remember to add try catch for file operations
 function update(rootFolder, targetFile) {
   const finalTranslation = fromFolders(rootFolder);
-  // const fileName = 'en.yml';  // this file should be set as default somewhere
-
   try {
     fs.writeFileSync(targetFile, finalTranslation);
   }
@@ -32,8 +31,9 @@ function push(rootFolder, targetFile) {
   // command to push to localeapp (only the target file)
 }
 
-function pull() {
-  
+function pull(rootFolder, targetFile, locale) {
+  const updatedFolders = toFolders(rootFolder, targetFile, locale);
+  return updatedFolders;
 }
 
 export default function awesome(command, rootFolder, target='', defaultLocale='en') {  // this must be set somewhere
