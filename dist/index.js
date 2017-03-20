@@ -60,5 +60,7 @@ function awesome(command, rootFolder) {
     return push(rootFolder, target);
   } else if (command === 'pull') {
     return pull(rootFolder, target, defaultLocale); // here the target is the target folder
+  } else {
+    console.log('Command not found');
   }
 }

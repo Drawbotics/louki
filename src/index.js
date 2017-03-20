@@ -46,4 +46,7 @@ export default function awesome(command, rootFolder, target='', defaultLocale='e
   else if (command === 'pull') {
     return pull(rootFolder, target, defaultLocale);  // here the target is the target folder
   }
+  else {
+    console.log('Command not found');
+  }
 }
