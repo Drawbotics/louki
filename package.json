@@ -10,7 +10,7 @@
     "clean": "rimraf dist/",
     "build:commonjs": "babel src --out-dir dist/",
     "build": "npm run clean && npm run build:commonjs",
-    "start": "node src/app.js",
+    "start": "node src/index.js",
     "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src"
   },
   "dependencies": {
