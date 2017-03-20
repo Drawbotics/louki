@@ -2,18 +2,21 @@
   "name": "localeawesome",
   "version": "0.0.1",
   "description": "Simple JavaScript tool to manage locales",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/Drawbotics/localeawesome.git",
   "author": "nick@drawbotics.com",
   "license": "MIT",
+  "preferGlobal": true,
   "scripts": {
     "clean": "rimraf dist/",
     "build:commonjs": "babel src --out-dir dist/",
     "build": "npm run clean && npm run build:commonjs",
-    "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src"
+    "start": "node src/index.js",
+    "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src",
+    "mocha": "./node_modules/.bin/mocha"
   },
   "bin": {
-    "localeawesome": "node src/index.js"
+    "localeawesome": "./bin/localeawesome"
   },
   "babel": {
     "presets": ["es2015", "stage-0"]
