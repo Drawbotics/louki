@@ -56,16 +56,14 @@ function parseTranslation(json, rootFolder) {
       manifest: newJson,
     });
 
-    fs.writeFile(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2), (err) => {
-      if (err) throw err;
-    });
+    console.log(`${rootFolder}/manifest.json`, newJson);
+
+    fs.writeFileSync(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2));
   }
 
   // now replace the rest in the manifest
   else {
-    fs.writeFile(`${rootFolder}/index.yml`, jsonToYml(json), (err) => {
-      if (err) throw err;
-    });
+    fs.writeFileSync(`${rootFolder}/index.yml`, jsonToYml(json));
 
     // add new contents of the yml (not parsed)
     Object.assign(final, {

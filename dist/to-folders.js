@@ -69,16 +69,14 @@ function parseTranslation(json, rootFolder) {
       manifest: newJson
     });
 
-    _fs2.default.writeFile(rootFolder + '/manifest.json', JSON.stringify(newJson, null, 2), function (err) {
-      if (err) throw err;
-    });
+    console.log(rootFolder + '/manifest.json', newJson);
+
+    _fs2.default.writeFileSync(rootFolder + '/manifest.json', JSON.stringify(newJson, null, 2));
   }
 
   // now replace the rest in the manifest
   else {
-      _fs2.default.writeFile(rootFolder + '/index.yml', (0, _utils.jsonToYml)(json), function (err) {
-        if (err) throw err;
-      });
+      _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _utils.jsonToYml)(json));
 
       // add new contents of the yml (not parsed)
       Object.assign(final, {
