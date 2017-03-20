@@ -4,8 +4,10 @@ var localeawesome = require('../dist/index.js');
 var program = require('commander');
 var path = require('path');
 
+var conf = {};
+var appCfg = require('rc')('localeawesome', conf);
+
 program
-  // .command('mycommand')
   .arguments('<cmd>')
   .action(function (cmd) {
     cmdValue = cmd;
@@ -19,6 +21,26 @@ if (typeof cmdValue === 'undefined') {
   console.error('no command given!');
   process.exit(1);
 }
-console.log('command:', cmdValue);
+else {
+  if (typeof appCfg[0] === 'undefined') {
+    console.error('no config file found!');
+    process.exit(1);
+  }
 
-console.log(path.resolve(__dirname, '../'));
+  var rootPath = path.resolve('./');
+  var localeTarget = appCfg.target;
+  var localeSource = appCfg.source;
+  var defaultLocale = appCfg.default;
+
+  if (typeof localeTarget === 'undefined'
+    || typeof localeSource === 'undefined'
+    || typeof defaultLocale === 'undefined') {
+    console.error('Missing config options! Provide root, source, default');
+    process.exit(1);
+  }
+
+  var targetPath = rootPath + localeTarget;
+  var sourcePath = rootPath + localeSource;
+
+  localeawesome(cmdValue, sourcePath, targetPath, defaultLocale);
+}

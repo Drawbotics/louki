@@ -31,6 +31,7 @@
     "fs": "^0.0.1-security",
     "js-yaml": "^3.8.2",
     "lodash": "^4.17.4",
+    "rc": "^1.1.7",
     "rimraf": "^2.6.1"
   },
   "devDependencies": {

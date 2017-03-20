@@ -36,7 +36,7 @@ function pull(rootFolder, targetFile, locale) {
   return updatedFolders;
 }
 
-export default function awesome(command, rootFolder, target='', defaultLocale='en') {  // this must be set somewhere
+export default function awesome(command, rootFolder, target, defaultLocale='en') {  // this must be set somewhere
   if (command === 'update') {
     return update(rootFolder, target);
   }
@@ -47,6 +47,7 @@ export default function awesome(command, rootFolder, target='', defaultLocale='e
     return pull(rootFolder, target, defaultLocale);  // here the target is the target folder
   }
   else {
-    console.log('Command not found');
+    console.error('Command not found');
+    return;
   }
 }
