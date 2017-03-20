@@ -57,6 +57,7 @@ function parseTree(rootFolder) {
   return final;
 }
 
-function fromFolders(rootFolder) {
-  return (0, _utils.jsonToYml)(parseTree(rootFolder));
+function fromFolders(rootFolder, locale) {
+  var result = Object.assign({}, _defineProperty({}, locale, parseTree(rootFolder)));
+  return (0, _utils.jsonToYml)(result);
 }

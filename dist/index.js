@@ -30,9 +30,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // remember to add try catch for file operations
 function update(rootFolder, targetPath, locale) {
-  console.log(rootFolder);
-  var finalTranslation = (0, _fromFolders2.default)(rootFolder);
-  console.log(finalTranslation);
+  var finalTranslation = (0, _fromFolders2.default)(rootFolder, locale);
   try {
     _fs2.default.writeFileSync(targetPath + '/' + locale + '.yml', finalTranslation); // file type is hardcoded for now
   } catch (err) {
@@ -49,7 +47,7 @@ function push(rootFolder, targetPath, locale) {
 
 function pull(rootFolder, targetPath, locale) {
   var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
-  var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale);
+  var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
   return updatedFolders;
 }
 
