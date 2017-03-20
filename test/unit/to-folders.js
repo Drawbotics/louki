@@ -9,7 +9,7 @@ import toFolders from '../../src/to-folders';
 describe('TO FOLDERS EXAMPLE', () => {
   describe('toFolders(rootFolder, target)', () => {
     const rootFolder = '../mock/config/generated/sections';
-    const targetFile = 'en-base.yml';
+    const targetFile = 'en-to.yml';
     const rootPath = path.resolve(__dirname, rootFolder);
     const targetFilePath = path.resolve(__dirname, targetFile);
 

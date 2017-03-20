@@ -14,7 +14,7 @@ describe('FROM FOLDERS EXAMPLE', function() {
 
       let en;
       before(function() {
-        en = fs.readFileSync(path.resolve(__dirname, 'en.yml'), 'utf8');
+        en = fs.readFileSync(path.resolve(__dirname, 'en-from.yml'), 'utf8');
       });
       it('the generated yml file should contain all contents of the rootFolder', function() {
         expect(fromFolders(fullRootPath)).to.equal(en);
