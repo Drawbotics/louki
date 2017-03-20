@@ -46,6 +46,9 @@ function parseTree(rootFolder) {
   return final;
 }
 
-export default function fromFolders(rootFolder) {
-  return jsonToYml(parseTree(rootFolder));
+export default function fromFolders(rootFolder, locale) {
+  const result = Object.assign({}, {
+    [locale]: parseTree(rootFolder),
+  });
+  return jsonToYml(result);
 }

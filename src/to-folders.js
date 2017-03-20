@@ -76,6 +76,7 @@ function parseTranslation(json, rootFolder) {
   return final;
 }
 
-export default function toFolders(rootFolder, target) {
-  return parseTranslation(ymlToJson(target), rootFolder);
+export default function toFolders(rootFolder, target, locale) {
+  const strippedTarget = ymlToJson(target)[locale];
+  return parseTranslation(strippedTarget, rootFolder);
 }

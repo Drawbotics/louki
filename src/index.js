@@ -15,9 +15,7 @@ import toFolders from './to-folders';
 
 // remember to add try catch for file operations
 function update(rootFolder, targetPath, locale) {
-  console.log(rootFolder);
-  const finalTranslation = fromFolders(rootFolder);
-  console.log(finalTranslation);
+  const finalTranslation = fromFolders(rootFolder, locale);
   try {
     fs.writeFileSync(`${targetPath}/${locale}.yml`, finalTranslation);   // file type is hardcoded for now
   }
@@ -35,7 +33,7 @@ function push(rootFolder, targetPath, locale) {
 
 function pull(rootFolder, targetPath, locale) {
   const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
-  const updatedFolders = toFolders(rootFolder, compiledLocale);
+  const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
   return updatedFolders;
 }
 
