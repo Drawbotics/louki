@@ -10,8 +10,13 @@
     "clean": "rimraf dist/",
     "build:commonjs": "babel src --out-dir dist/",
     "build": "npm run clean && npm run build:commonjs",
-    "start": "node src/index.js",
     "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src"
+  },
+  "bin": {
+    "localeawesome": "node src/index.js"
+  },
+  "babel": {
+    "presets": ["es2015", "stage-0"]
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
