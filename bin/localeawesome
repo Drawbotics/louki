@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-var localeawesome = require('../dist/index.js');
+var awesome = require('../dist/index.js').default;
 var program = require('commander');
 var path = require('path');
 
@@ -22,7 +22,7 @@ if (typeof cmdValue === 'undefined') {
   process.exit(1);
 }
 else {
-  if (typeof appCfg[0] === 'undefined') {
+  if (typeof appCfg.config === 'undefined') {
     console.error('no config file found!');
     process.exit(1);
   }
@@ -39,8 +39,8 @@ else {
     process.exit(1);
   }
 
-  var targetPath = rootPath + localeTarget;
-  var sourcePath = rootPath + localeSource;
+  var targetPath = rootPath + '/' + localeTarget;
+  var sourcePath = rootPath + '/' + localeSource;
 
-  localeawesome(cmdValue, sourcePath, targetPath, defaultLocale);
+  awesome(cmdValue, sourcePath, targetPath, defaultLocale);
 }
