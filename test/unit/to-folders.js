@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
+import { get } from 'lodash';
 
 import toFolders from '../../src/to-folders';
 
@@ -12,9 +13,6 @@ describe('TO FOLDERS EXAMPLE', () => {
     const rootPath = path.resolve(__dirname, rootFolder);
     const targetFilePath = path.resolve(__dirname, targetFile);
 
-    const targetManifest = '../mock/config/generated/sections/manifest.json';
-    const targetManifestPath = path.resolve(__dirname, targetManifest);
-
     let en;
     let desiredManifest;
     let desiredQuick;
@@ -25,13 +23,19 @@ describe('TO FOLDERS EXAMPLE', () => {
         "studio": "{{studio}}",
         "user": "the user of life"
       };
+      desiredQuick = {
+        "quick": "Veloce %{cammina}",
+        "service": "Servizio %{ciao}",
+        "haha": "fsdflkj"
+      };
     });
 
     it('should take the contents of the target file and update the manifests (root)', () => {
-      toFolders(rootPath, en);
-      const updatedManifest = fs.readFileSync(targetManifestPath, 'utf8');
-      // expect(JSON.parse(updatedManifest)).to.equal(desiredManifest);
-      console.log('1', updatedManifest, '2', desiredManifest);
+      const sections = toFolders(rootPath, en);
+      const updatedManifest = get(sections, 'manifest');
+      const updatedQuick = get(sections, 'order.quick-services.index');
+      expect(updatedManifest).to.deep.equal(desiredManifest);
+      expect(updatedQuick).to.deep.equal(desiredQuick);
     });
 
   });
