@@ -30,7 +30,6 @@ describe('FROM FOLDERS EXAMPLE', function() {
         en = fs.readFileSync(path.resolve(__dirname, 'simple.yml'), 'utf8');
       });
       it('the generated yml file should contain all contents of the rootFolder', function() {
-        // console.log(fromFolders(fullRootPath, 'en'));
         expect(fromFolders(fullRootPath, 'en')).to.equal(en);
       });
     });

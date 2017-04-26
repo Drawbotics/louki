@@ -56,27 +56,21 @@ function parseTranslation(json, rootFolder) {
       manifest: newJson,
     });
 
-    // console.log(`${rootFolder}/manifest.json`, newJson);
-    // console.log(' ----- new json ----', newJson);
-
     fs.writeFileSync(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2));
   }
 
   // now replace the rest in the manifest
-  // else {
-    fs.writeFileSync(`${rootFolder}/index.yml`, jsonToYml(json));
+  fs.writeFileSync(`${rootFolder}/index.yml`, jsonToYml(json));
 
-    // add new contents of the yml (not parsed)
-    Object.assign(final, {
-      index: json,
-    });
-  // }
+  // add new contents of the yml (not parsed)
+  Object.assign(final, {
+    index: json,
+  });
 
   return final;
 }
 
 export default function toFolders(rootFolder, target, locale) {
   const strippedTarget = ymlToJson(target)[locale];
-  // console.log(strippedTarget);
   return parseTranslation(strippedTarget, rootFolder);
 }

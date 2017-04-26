@@ -33,16 +33,14 @@ function parseTree(rootFolder) {
       }
     }
   }
-  // else {
-    const index = find(children, { extension: 'yml' });
-    if (index) {
-      // console.log(index);
-      const translations = ymlToJson(index.content);
-      Object.assign(final, {
-        ...translations,
-      });
-    }
-  // }
+
+  const index = find(children, { extension: 'yml' });
+  if (index) {
+    const translations = ymlToJson(index.content);
+    Object.assign(final, {
+      ...translations,
+    });
+  }
 
   return final;
 }

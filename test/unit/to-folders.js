@@ -31,10 +31,8 @@ describe('TO FOLDERS EXAMPLE', () => {
 
     it('should take the contents of the target file and update the manifests (root)', () => {
       const sections = toFolders(rootPath, en, 'en_to');
-      // console.log(sections);
       const updatedManifest = get(sections, 'manifest');
       const updatedQuick = get(sections, 'order.quick-services.index');
-      // console.log(updatedManifest, desiredManifest);
       expect(updatedManifest).to.deep.equal(desiredManifest);
       expect(updatedQuick).to.deep.equal(desiredQuick);
     });
