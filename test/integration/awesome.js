@@ -34,7 +34,6 @@ describe('AWESOME EXAMPLE', () => {
           "order": "{{order}}",
           "studio": "{{studio}}",
           "back_office": "{{backoffice}}",
-          "user": "the user of life (shared between order and studio)"
         };
         desiredQuick = {
           "quick": "Veloce",

@@ -10,6 +10,8 @@ en-target:
     quick_services:
       quick: Veloce
       service: 'Servizio %{ciao}'
+    simple_key: Thefirst simple key
+    another_key: theo ther keeeey
   studio:
     zone: Zone
     highlight_area: Highlighted area
@@ -20,3 +22,4 @@ en-target:
     key_group:
       first: First
       second: Second
+  user: the user of life (shared between order and studio)
