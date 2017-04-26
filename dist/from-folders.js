@@ -46,12 +46,12 @@ function parseTree(rootFolder) {
         }
       }
     }
-  } else {
-    var index = (0, _lodash.find)(children, { extension: 'yml' });
-    if (index) {
-      var translations = (0, _utils.ymlToJson)(index.content);
-      Object.assign(final, _extends({}, translations));
-    }
+  }
+
+  var index = (0, _lodash.find)(children, { extension: 'yml' });
+  if (index) {
+    var translations = (0, _utils.ymlToJson)(index.content);
+    Object.assign(final, _extends({}, translations));
   }
 
   return final;

@@ -62,33 +62,28 @@ function parseTranslation(json, rootFolder) {
     }
 
     // now we are left only with simple keys, so add them to the manifest (newJson)
-    Object.assign(newJson, json);
+    // Object.assign(newJson, json);
 
     // add updated manifest to folder structure object
     Object.assign(final, {
       manifest: newJson
     });
 
-    // console.log(rootFolder + '/manifest.json', newJson);
-
     _fs2.default.writeFileSync(rootFolder + '/manifest.json', JSON.stringify(newJson, null, 2));
   }
 
   // now replace the rest in the manifest
-  else {
-      _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _utils.jsonToYml)(json));
+  _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _utils.jsonToYml)(json));
 
-      // add new contents of the yml (not parsed)
-      Object.assign(final, {
-        index: json
-      });
-    }
+  // add new contents of the yml (not parsed)
+  Object.assign(final, {
+    index: json
+  });
 
   return final;
 }
 
 function toFolders(rootFolder, target, locale) {
   var strippedTarget = (0, _utils.ymlToJson)(target)[locale];
-  // console.log(strippedTarget);
   return parseTranslation(strippedTarget, rootFolder);
 }
