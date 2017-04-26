@@ -1,5 +1,4 @@
 {
   "order": "{{order}}",
-  "studio": "{{studio}}",
-  "user": "the user of life"
+  "studio": "{{studio}}"
 }
