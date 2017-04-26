@@ -69,7 +69,7 @@ function parseTranslation(json, rootFolder) {
       manifest: newJson
     });
 
-    console.log(rootFolder + '/manifest.json', newJson);
+    // console.log(rootFolder + '/manifest.json', newJson);
 
     _fs2.default.writeFileSync(rootFolder + '/manifest.json', JSON.stringify(newJson, null, 2));
   }
