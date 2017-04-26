@@ -8,17 +8,33 @@ var conf = {};
 var appCfg = require('rc')('localeawesome', conf);
 
 program
+  .version('0.0.1')
   .arguments('<cmd>')
   .action(function (cmd) {
     cmdValue = cmd;
-  })
-  .command('update', 'To update the compiled default locale (without pushing)')
-  .command('push', 'To push to localeapp using the bash command??')
-  .command('pull', 'To pull from localeapp and update all files (compiled and src)')
-  .parse(process.argv);
+  });
+
+program
+  .command('update')
+  .description('To update the compiled default locale (without pushing)');
+
+program
+  .command('push')
+  .description('To push to localeapp using the bash command??');
+
+program
+  .command('pull')
+  .description('To pull from localeapp and update all files (compiled and src)');
+
+program.parse(process.argv);
+
 
 if (typeof cmdValue === 'undefined') {
   console.error('no command given!');
+  process.exit(1);
+}
+else if (! ['update', 'push', 'pull'].includes(cmdValue)) {
+  console.error('Command not supported or recognised');
   process.exit(1);
 }
 else {
