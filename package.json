@@ -11,7 +11,7 @@
     "clean": "rimraf dist/",
     "build:commonjs": "babel src --out-dir dist/",
     "build": "npm run clean && npm run build:commonjs",
-    "start": "node src/index.js",
+    "build-watch": "npm run clean && npm run build:commonjs -- --watch",
     "test": "mocha --compilers js:babel-core/register --reporter spec --watch ./test ./src",
     "mocha": "./node_modules/.bin/mocha"
   },
@@ -32,7 +32,8 @@
     "js-yaml": "^3.8.2",
     "lodash": "^4.17.4",
     "rc": "^1.1.7",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "shelljs": "^0.7.7"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
