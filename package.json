@@ -1,6 +1,6 @@
 {
   "name": "localeawesome",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple JavaScript tool to manage locales",
   "main": "src/index.js",
   "repository": "https://github.com/Drawbotics/localeawesome.git",
