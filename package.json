@@ -16,7 +16,8 @@
     "mocha": "./node_modules/.bin/mocha"
   },
   "bin": {
-    "localeawesome": "./bin/localeawesome"
+    "localeawesome": "./bin/localeawesome",
+    "lca": "./bin/localeawesome"
   },
   "babel": {
     "presets": [
