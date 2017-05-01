@@ -30,13 +30,13 @@ function push(rootFolder, targetPath, locale) {
   const result = update(rootFolder, targetPath, locale);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
-  console.log(rootFolder, targetPath, locale);
   shell.exec(
     `localeapp push ${targetPath}/${locale}.yml`,
   ).stdout;
 }
 
 function pull(rootFolder, targetPath, locale) {
+  const result = shell.exec('localeapp pull').stdout;
   const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
   const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
   return updatedFolders;

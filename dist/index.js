@@ -47,11 +47,11 @@ function push(rootFolder, targetPath, locale) {
   var result = update(rootFolder, targetPath, locale);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
-  console.log(rootFolder, targetPath, locale);
   _shelljs2.default.exec('localeapp push ' + targetPath + '/' + locale + '.yml').stdout;
 }
 
 function pull(rootFolder, targetPath, locale) {
+  var result = _shelljs2.default.exec('localeapp pull').stdout;
   var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
   var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
   return updatedFolders;
