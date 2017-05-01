@@ -1,4 +1,5 @@
 import fs from 'fs';
+import shell from 'shelljs';
 
 import fromFolders from './from-folders';
 import toFolders from './to-folders';
@@ -26,9 +27,13 @@ function update(rootFolder, targetPath, locale) {
 }
 
 function push(rootFolder, targetPath, locale) {
-  update(rootFolder, targetFile);
+  const result = update(rootFolder, targetPath, locale);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
+  console.log(rootFolder, targetPath, locale);
+  shell.exec(
+    `localeapp push ${targetPath}/${locale}.yml`,
+  ).stdout;
 }
 
 function pull(rootFolder, targetPath, locale) {

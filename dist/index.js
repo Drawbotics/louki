@@ -9,6 +9,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _shelljs = require('shelljs');
+
+var _shelljs2 = _interopRequireDefault(_shelljs);
+
 var _fromFolders = require('./from-folders');
 
 var _fromFolders2 = _interopRequireDefault(_fromFolders);
@@ -40,9 +44,11 @@ function update(rootFolder, targetPath, locale) {
 }
 
 function push(rootFolder, targetPath, locale) {
-  update(rootFolder, targetFile);
+  var result = update(rootFolder, targetPath, locale);
   // do some promise thing and then...
   // command to push to localeapp (only the target file)
+  console.log(rootFolder, targetPath, locale);
+  _shelljs2.default.exec('localeapp push ' + targetPath + '/' + locale + '.yml').stdout;
 }
 
 function pull(rootFolder, targetPath, locale) {
