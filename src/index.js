@@ -1,8 +1,13 @@
 import fs from 'fs';
 import shell from 'shelljs';
+import dotenv from 'dotenv';
+import get from 'lodash/get';
 
 import fromFolders from './from-folders';
 import toFolders from './to-folders';
+
+import { localeappPull, localeappPush } from './api';
+
 
 /**
   AVAILABLE COMMANDS:
@@ -26,21 +31,54 @@ function update(rootFolder, targetPath, locale) {
   return finalTranslation;
 }
 
+
 function push(rootFolder, targetPath, locale) {
-  const result = update(rootFolder, targetPath, locale);
-  // do some promise thing and then...
-  // command to push to localeapp (only the target file)
-  shell.exec(
-    `localeapp push ${targetPath}/${locale}.yml`,
-  ).stdout;
+  update(rootFolder, targetPath, locale);
+
+  const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
+
+  if (shell.exec(`localeapp push ${targetPath}/${locale}.yml`).code !== 0) {
+    shell.echo('Not a rails project, trying with env variable');
+
+    if (! localeappKey) {
+      console.error('No localeapp project key found in .env! Please specify one');
+    }
+    else {
+      localeappPush(localeappKey, 'file');
+    }
+  }
+  // else {
+  //   shell.exec(
+  //     `localeapp push ${targetPath}/${locale}.yml`,
+  //   ).stdout;
+  // }
 }
 
+
 function pull(rootFolder, targetPath, locale) {
-  const result = shell.exec('localeapp pull').stdout;
+
+  const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
+
+  if (shell.exec('localeapp pull').code !== 0) {
+    shell.echo('Not a rails project, trying with env variable');
+
+    if (! localeappKey) {
+      console.error('No localeapp project key found in .env! Please specify one');
+    }
+    else {
+      const allTrans = localeappPull(localeappKey).then(({ response, body }) => {
+        console.log(body);
+      });
+    }
+
+    return;
+  }
+  
   const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
   const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
   return updatedFolders;
 }
+
 
 export default function awesome(command, rootFolder, targetPath, defaultLocale='en') {  // this must be set somewhere
   if (command === 'update') {
