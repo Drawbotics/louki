@@ -6,7 +6,6 @@ const localeapp = 'https://api.localeapp.com';
 
 function request(type, url, key, data={}) {
   return new Promise((resolve, reject) => {
-    // console.log(data);
     console.log(url);
     const fullUrl = `${localeapp}/v1/projects/${key}/${url.replace(/^\//, '')}`;
     console.log(fullUrl);
@@ -45,31 +44,3 @@ export function localeappPull(key) {
 export function localeappPush(key, file) {
 
 };
-
-
-// export const Annotation = {
-//   create(data) {
-//     const entity = data.toEntity ? data.toEntity() : data;
-//     const annotation = annotationToServer(entity);
-//     let result;
-//     return request('POST', '/studio/annotations', { annotation });
-//   },
-//   update(id, data) {
-//     const entity = data.toEntity ? data.toEntity() : data;
-//     const annotation = {
-//       ...annotationToServer(entity),
-//       id,
-//     };
-//     let result;
-//     return request('POST', `/studio/annotations`, { annotation });
-//   },
-//   delete(id) {
-//     return request('DELETE', `/studio/annotations/${id}`);
-//   },
-// };
-
-
-// export default {
-//   localeappPush,
-//   localeappPull,
-// };

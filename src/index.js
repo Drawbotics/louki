@@ -5,6 +5,7 @@ import get from 'lodash/get';
 
 import fromFolders from './from-folders';
 import toFolders from './to-folders';
+import { ymlToJson, jsonToYml } from './utils';
 
 import { localeappPull, localeappPush } from './api';
 
@@ -47,11 +48,6 @@ function push(rootFolder, targetPath, locale) {
       localeappPush(localeappKey, 'file');
     }
   }
-  // else {
-  //   shell.exec(
-  //     `localeapp push ${targetPath}/${locale}.yml`,
-  //   ).stdout;
-  // }
 }
 
 
@@ -59,21 +55,28 @@ function pull(rootFolder, targetPath, locale) {
 
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
 
+  console.log(process.env);
+
   if (shell.exec('localeapp pull').code !== 0) {
     shell.echo('Not a rails project, trying with env variable');
-
     if (! localeappKey) {
       console.error('No localeapp project key found in .env! Please specify one');
     }
     else {
       const allTrans = localeappPull(localeappKey).then(({ response, body }) => {
-        console.log(body);
+        const localesArray = ymlToJson(body);
+        Object.entries(localesArray).map((l) => {
+          const ymlLocale = jsonToYml({ [l[0]]: l[1] });
+          fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
+        });
       });
+      const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
+      const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
+      return updatedFolders;
     }
-
     return;
   }
-  
+
   const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
   const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
   return updatedFolders;

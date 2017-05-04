@@ -29,9 +29,13 @@ var _toFolders = require('./to-folders');
 
 var _toFolders2 = _interopRequireDefault(_toFolders);
 
+var _utils = require('./utils');
+
 var _api = require('./api');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
   AVAILABLE COMMANDS:
@@ -67,20 +71,16 @@ function push(rootFolder, targetPath, locale) {
       (0, _api.localeappPush)(localeappKey, 'file');
     }
   }
-  // else {
-  //   shell.exec(
-  //     `localeapp push ${targetPath}/${locale}.yml`,
-  //   ).stdout;
-  // }
 }
 
 function pull(rootFolder, targetPath, locale) {
 
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
 
+  console.log(process.env);
+
   if (_shelljs2.default.exec('localeapp pull').code !== 0) {
     _shelljs2.default.echo('Not a rails project, trying with env variable');
-
     if (!localeappKey) {
       console.error('No localeapp project key found in .env! Please specify one');
     } else {
@@ -88,10 +88,16 @@ function pull(rootFolder, targetPath, locale) {
         var response = _ref.response,
             body = _ref.body;
 
-        console.log(body);
+        var localesArray = (0, _utils.ymlToJson)(body);
+        Object.entries(localesArray).map(function (l) {
+          var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
+          _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
+        });
       });
+      var _compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
+      var _updatedFolders = (0, _toFolders2.default)(rootFolder, _compiledLocale, locale);
+      return _updatedFolders;
     }
-
     return;
   }
 
