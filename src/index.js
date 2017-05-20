@@ -47,7 +47,7 @@ function push(rootFolder, targetPath, locale) {
     const data = fs.createReadStream(filePath);
     localeappPush(localeappKey, data).then(({ response, body }) => {
       console.log(`Successfully pushed ${locale}.yml to Localeapp`);
-    }, (err) => console.error(err));
+    }).catch((err) => console.error(err));
   }
 }
 
@@ -58,21 +58,22 @@ function pull(rootFolder, targetPath, locale) {
 
   if (! localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
+    return null;
   }
   else {
-    const allTrans = localeappPull(localeappKey).then(({ response, body }) => {
+    return localeappPull(localeappKey).then(({ response, body }) => {
       const localesArray = ymlToJson(body);
+      console.log(`Successfully pulled locales ${Object.keys(localesArray).join(', ')} from Localeapp`);
       Object.entries(localesArray).map((l) => {
         const ymlLocale = jsonToYml({ [l[0]]: l[1] });
         fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
       });
-      console.log(`Successfully pulled locales ${Object.keys(localesArray).join(', ')} from Localeapp`);
-    }, (err) => console.error(err));
-    const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
-    const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
-    return updatedFolders;
+      const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
+      const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
+      console.log('Folders updated');
+      return updatedFolders;
+    }).catch((err) => console.error(err));
   }
-  return;
 }
 
 

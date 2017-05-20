@@ -76,7 +76,7 @@ function push(rootFolder, targetPath, locale) {
           body = _ref.body;
 
       console.log('Successfully pushed ' + locale + '.yml to Localeapp');
-    }, function (err) {
+    }).catch(function (err) {
       return console.error(err);
     });
   }
@@ -88,25 +88,26 @@ function pull(rootFolder, targetPath, locale) {
 
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
+    return null;
   } else {
-    var allTrans = (0, _api.localeappPull)(localeappKey).then(function (_ref2) {
+    return (0, _api.localeappPull)(localeappKey).then(function (_ref2) {
       var response = _ref2.response,
           body = _ref2.body;
 
       var localesArray = (0, _utils.ymlToJson)(body);
+      console.log('Successfully pulled locales ' + Object.keys(localesArray).join(', ') + ' from Localeapp');
       Object.entries(localesArray).map(function (l) {
         var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
         _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
       });
-      console.log('Successfully pulled locales ' + Object.keys(localesArray).join(', ') + ' from Localeapp');
-    }, function (err) {
+      var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
+      var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
+      console.log('Folders updated');
+      return updatedFolders;
+    }).catch(function (err) {
       return console.error(err);
     });
-    var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
-    var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
-    return updatedFolders;
   }
-  return;
 }
 
 function louki(command, rootFolder, targetPath, defaultLocale) {
