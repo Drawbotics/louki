@@ -38,15 +38,11 @@ function push(rootFolder, targetPath, locale) {
 
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
 
-  if (shell.exec(`localeapp push ${targetPath}/${locale}.yml`).code !== 0) {
-    shell.echo('Not a rails project, trying with env variable');
-
-    if (! localeappKey) {
-      console.error('No localeapp project key found in .env! Please specify one');
-    }
-    else {
-      localeappPush(localeappKey, 'file');
-    }
+  if (! localeappKey) {
+    console.error('No localeapp project key found in .env! Please specify one');
+  }
+  else {
+    localeappPush(localeappKey, 'file');
   }
 }
 
@@ -55,35 +51,26 @@ function pull(rootFolder, targetPath, locale) {
 
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
 
-  console.log(process.env);
-
-  if (shell.exec('localeapp pull').code !== 0) {
-    shell.echo('Not a rails project, trying with env variable');
-    if (! localeappKey) {
-      console.error('No localeapp project key found in .env! Please specify one');
-    }
-    else {
-      const allTrans = localeappPull(localeappKey).then(({ response, body }) => {
-        const localesArray = ymlToJson(body);
-        Object.entries(localesArray).map((l) => {
-          const ymlLocale = jsonToYml({ [l[0]]: l[1] });
-          fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
-        });
-      });
-      const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
-      const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
-      return updatedFolders;
-    }
-    return;
+  if (! localeappKey) {
+    console.error('No localeapp project key found in .env! Please specify one');
   }
-
-  const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
-  const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
-  return updatedFolders;
+  else {
+    const allTrans = localeappPull(localeappKey).then(({ response, body }) => {
+      const localesArray = ymlToJson(body);
+      Object.entries(localesArray).map((l) => {
+        const ymlLocale = jsonToYml({ [l[0]]: l[1] });
+        fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
+      });
+    });
+    const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
+    const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
+    return updatedFolders;
+  }
+  return;
 }
 
 
-export default function louki(command, rootFolder, targetPath, defaultLocale='en') {  // this must be set somewhere
+export default function louki(command, rootFolder, targetPath, defaultLocale) {
   if (command === 'update') {
     return update(rootFolder, targetPath, defaultLocale);
   }

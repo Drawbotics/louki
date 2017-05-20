@@ -62,14 +62,10 @@ function push(rootFolder, targetPath, locale) {
 
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
 
-  if (_shelljs2.default.exec('localeapp push ' + targetPath + '/' + locale + '.yml').code !== 0) {
-    _shelljs2.default.echo('Not a rails project, trying with env variable');
-
-    if (!localeappKey) {
-      console.error('No localeapp project key found in .env! Please specify one');
-    } else {
-      (0, _api.localeappPush)(localeappKey, 'file');
-    }
+  if (!localeappKey) {
+    console.error('No localeapp project key found in .env! Please specify one');
+  } else {
+    (0, _api.localeappPush)(localeappKey, 'file');
   }
 }
 
@@ -77,38 +73,27 @@ function pull(rootFolder, targetPath, locale) {
 
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
 
-  console.log(process.env);
+  if (!localeappKey) {
+    console.error('No localeapp project key found in .env! Please specify one');
+  } else {
+    var allTrans = (0, _api.localeappPull)(localeappKey).then(function (_ref) {
+      var response = _ref.response,
+          body = _ref.body;
 
-  if (_shelljs2.default.exec('localeapp pull').code !== 0) {
-    _shelljs2.default.echo('Not a rails project, trying with env variable');
-    if (!localeappKey) {
-      console.error('No localeapp project key found in .env! Please specify one');
-    } else {
-      var allTrans = (0, _api.localeappPull)(localeappKey).then(function (_ref) {
-        var response = _ref.response,
-            body = _ref.body;
-
-        var localesArray = (0, _utils.ymlToJson)(body);
-        Object.entries(localesArray).map(function (l) {
-          var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
-          _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
-        });
+      var localesArray = (0, _utils.ymlToJson)(body);
+      Object.entries(localesArray).map(function (l) {
+        var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
+        _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
       });
-      var _compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
-      var _updatedFolders = (0, _toFolders2.default)(rootFolder, _compiledLocale, locale);
-      return _updatedFolders;
-    }
-    return;
+    });
+    var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
+    var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
+    return updatedFolders;
   }
-
-  var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
-  var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
-  return updatedFolders;
+  return;
 }
 
-function louki(command, rootFolder, targetPath) {
-  var defaultLocale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'en';
-  // this must be set somewhere
+function louki(command, rootFolder, targetPath, defaultLocale) {
   if (command === 'update') {
     return update(rootFolder, targetPath, defaultLocale);
   } else if (command === 'push') {

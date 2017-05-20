@@ -18,20 +18,6 @@ function request(type, url, key, data={}) {
         resolve({ response, body });
       }
     });
-
-    // jquery.ajax({
-    //   url: fullUrl,
-    //   type,
-    //   data: JSON.stringify(data),
-    //   dataType: 'json',
-    //   contentType: 'application/json',
-    //   beforeSend(request) {
-    //     // request.setRequestHeader(
-    //     //   'Authorization',
-    //     //   'Token token=' + window.gon.current_user.authentication_token
-    //     // );
-    //   }
-    // }).then(resolve, reject).fail(reject);
   });
 };
 
