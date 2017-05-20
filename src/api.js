@@ -6,23 +6,16 @@ const localeapp = 'https://api.localeapp.com';
 
 function request(method, url, key, data) {
   return new Promise((resolve, reject) => {
-    console.log(url);
     const fullUrl = `${localeapp}/v1/projects/${key}/${url.replace(/^\//, '')}`;
-    console.log('fullurl', fullUrl);
+    console.log(`Full url: ${fullUrl}`);
 
     rq({
       method,
       url: fullUrl,
-      formData: data ? {
-        file: data,
-      } : null,
+      formData: data ? { file: data } : null,
     }, (error, response, body) => {
-      if (error) {
-        reject(error);
-      }
-      else {
-        resolve({ response, body });
-      }
+      if (error) reject(error);
+      else resolve({ response, body });
     });
   });
 }

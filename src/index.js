@@ -43,10 +43,11 @@ function push(rootFolder, targetPath, locale) {
     console.error('No localeapp project key found in .env! Please specify one');
   }
   else {
-    const data = fs.createReadStream(`${targetPath}/${locale}.yml`);
+    const filePath = `${targetPath}/${locale}.yml`;
+    const data = fs.createReadStream(filePath);
     localeappPush(localeappKey, data).then(({ response, body }) => {
-      console.log(body);
-    }).catch((err) => console.error(err));
+      console.log(`Successfully pushed ${locale}.yml to Localeapp`);
+    }, (err) => console.error(err));
   }
 }
 
@@ -65,7 +66,8 @@ function pull(rootFolder, targetPath, locale) {
         const ymlLocale = jsonToYml({ [l[0]]: l[1] });
         fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
       });
-    }).catch((err) => console.error(err));;
+      console.log(`Successfully pulled locales ${Object.keys(localesArray).join(', ')} from Localeapp`);
+    }, (err) => console.error(err));
     const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
     const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
     return updatedFolders;

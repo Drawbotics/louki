@@ -69,13 +69,14 @@ function push(rootFolder, targetPath, locale) {
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
   } else {
-    var data = _fs2.default.createReadStream(targetPath + '/' + locale + '.yml');
+    var filePath = targetPath + '/' + locale + '.yml';
+    var data = _fs2.default.createReadStream(filePath);
     (0, _api.localeappPush)(localeappKey, data).then(function (_ref) {
       var response = _ref.response,
           body = _ref.body;
 
-      console.log(body);
-    }).catch(function (err) {
+      console.log('Successfully pushed ' + locale + '.yml to Localeapp');
+    }, function (err) {
       return console.error(err);
     });
   }
@@ -97,9 +98,10 @@ function pull(rootFolder, targetPath, locale) {
         var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
         _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
       });
-    }).catch(function (err) {
+      console.log('Successfully pulled locales ' + Object.keys(localesArray).join(', ') + ' from Localeapp');
+    }, function (err) {
       return console.error(err);
-    });;
+    });
     var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
     var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
     return updatedFolders;

@@ -16,22 +16,15 @@ var localeapp = 'https://api.localeapp.com';
 
 function request(method, url, key, data) {
   return new Promise(function (resolve, reject) {
-    console.log(url);
     var fullUrl = localeapp + '/v1/projects/' + key + '/' + url.replace(/^\//, '');
-    console.log('fullurl', fullUrl);
+    console.log('Full url: ' + fullUrl);
 
     (0, _request2.default)({
       method: method,
       url: fullUrl,
-      formData: data ? {
-        file: data
-      } : null
+      formData: data ? { file: data } : null
     }, function (error, response, body) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve({ response: response, body: body });
-      }
+      if (error) reject(error);else resolve({ response: response, body: body });
     });
   });
 }
