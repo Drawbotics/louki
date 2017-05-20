@@ -83,7 +83,7 @@ function pull(rootFolder, targetPath, locale) {
 }
 
 
-export default function awesome(command, rootFolder, targetPath, defaultLocale='en') {  // this must be set somewhere
+export default function louki(command, rootFolder, targetPath, defaultLocale='en') {  // this must be set somewhere
   if (command === 'update') {
     return update(rootFolder, targetPath, defaultLocale);
   }

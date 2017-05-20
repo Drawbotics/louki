@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = awesome;
+exports.default = louki;
 
 var _fs = require('fs');
 
@@ -106,7 +106,7 @@ function pull(rootFolder, targetPath, locale) {
   return updatedFolders;
 }
 
-function awesome(command, rootFolder, targetPath) {
+function louki(command, rootFolder, targetPath) {
   var defaultLocale = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'en';
   // this must be set somewhere
   if (command === 'update') {

@@ -1,9 +1,9 @@
 {
-  "name": "localeawesome",
+  "name": "louki",
   "version": "0.1.1",
-  "description": "Simple JavaScript tool to manage locales",
+  "description": "Locale Organization Utility to manage locales",
   "main": "src/index.js",
-  "repository": "https://github.com/Drawbotics/localeawesome.git",
+  "repository": "https://github.com/Drawbotics/louki.git",
   "author": "nick@drawbotics.com",
   "license": "MIT",
   "preferGlobal": true,
@@ -16,7 +16,7 @@
     "mocha": "./node_modules/.bin/mocha"
   },
   "bin": {
-    "localeawesome": "./bin/localeawesome"
+    "louki": "./bin/louki"
   },
   "babel": {
     "presets": [

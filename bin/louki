@@ -1,11 +1,11 @@
 #! /usr/bin/env node
 
-var awesome = require('../dist/index.js').default;
+var louki = require('../dist/index.js').default;
 var program = require('commander');
 var path = require('path');
 
 var conf = {};
-var appCfg = require('rc')('localeawesome', conf);
+var appCfg = require('rc')('localelouki', conf);
 
 program
   .version('0.0.1')
@@ -58,5 +58,5 @@ else {
   var targetPath = rootPath + '/' + localeTarget;
   var sourcePath = rootPath + '/' + localeSource;
 
-  awesome(cmdValue, sourcePath, targetPath, defaultLocale);
+  louki(cmdValue, sourcePath, targetPath, defaultLocale);
 }
