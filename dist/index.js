@@ -9,6 +9,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _formData = require('form-data');
+
+var _formData2 = _interopRequireDefault(_formData);
+
 var _shelljs = require('shelljs');
 
 var _shelljs2 = _interopRequireDefault(_shelljs);
@@ -65,7 +69,15 @@ function push(rootFolder, targetPath, locale) {
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
   } else {
-    (0, _api.localeappPush)(localeappKey, 'file');
+    var data = _fs2.default.createReadStream(targetPath + '/' + locale + '.yml');
+    (0, _api.localeappPush)(localeappKey, data).then(function (_ref) {
+      var response = _ref.response,
+          body = _ref.body;
+
+      console.log(body);
+    }).catch(function (err) {
+      return console.error(err);
+    });
   }
 }
 
@@ -76,16 +88,18 @@ function pull(rootFolder, targetPath, locale) {
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
   } else {
-    var allTrans = (0, _api.localeappPull)(localeappKey).then(function (_ref) {
-      var response = _ref.response,
-          body = _ref.body;
+    var allTrans = (0, _api.localeappPull)(localeappKey).then(function (_ref2) {
+      var response = _ref2.response,
+          body = _ref2.body;
 
       var localesArray = (0, _utils.ymlToJson)(body);
       Object.entries(localesArray).map(function (l) {
         var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
         _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
       });
-    });
+    }).catch(function (err) {
+      return console.error(err);
+    });;
     var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
     var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
     return updatedFolders;

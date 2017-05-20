@@ -4,13 +4,19 @@ import rq from 'request';
 const localeapp = 'https://api.localeapp.com';
 
 
-function request(type, url, key, data={}) {
+function request(method, url, key, data) {
   return new Promise((resolve, reject) => {
     console.log(url);
     const fullUrl = `${localeapp}/v1/projects/${key}/${url.replace(/^\//, '')}`;
-    console.log(fullUrl);
+    console.log('fullurl', fullUrl);
 
-    rq.get(fullUrl, (error, response, body) => {
+    rq({
+      method,
+      url: fullUrl,
+      formData: data ? {
+        file: data,
+      } : null,
+    }, (error, response, body) => {
       if (error) {
         reject(error);
       }
@@ -19,7 +25,7 @@ function request(type, url, key, data={}) {
       }
     });
   });
-};
+}
 
 
 export function localeappPull(key) {
@@ -28,5 +34,5 @@ export function localeappPull(key) {
 
 
 export function localeappPush(key, file) {
-
+  return request('POST', '/import', key, file);
 };

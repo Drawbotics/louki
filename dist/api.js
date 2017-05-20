@@ -14,15 +14,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var localeapp = 'https://api.localeapp.com';
 
-function request(type, url, key) {
-  var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
+function request(method, url, key, data) {
   return new Promise(function (resolve, reject) {
     console.log(url);
     var fullUrl = localeapp + '/v1/projects/' + key + '/' + url.replace(/^\//, '');
-    console.log(fullUrl);
+    console.log('fullurl', fullUrl);
 
-    _request2.default.get(fullUrl, function (error, response, body) {
+    (0, _request2.default)({
+      method: method,
+      url: fullUrl,
+      formData: data ? {
+        file: data
+      } : null
+    }, function (error, response, body) {
       if (error) {
         reject(error);
       } else {
@@ -30,10 +34,12 @@ function request(type, url, key) {
       }
     });
   });
-};
+}
 
 function localeappPull(key) {
   return request('GET', '/translations/all.yml', key);
 };
 
-function localeappPush(key, file) {};
+function localeappPush(key, file) {
+  return request('POST', '/import', key, file);
+};

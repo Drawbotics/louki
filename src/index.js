@@ -1,4 +1,5 @@
 import fs from 'fs';
+import FormData from 'form-data';
 import shell from 'shelljs';
 import dotenv from 'dotenv';
 import get from 'lodash/get';
@@ -42,7 +43,10 @@ function push(rootFolder, targetPath, locale) {
     console.error('No localeapp project key found in .env! Please specify one');
   }
   else {
-    localeappPush(localeappKey, 'file');
+    const data = fs.createReadStream(`${targetPath}/${locale}.yml`);
+    localeappPush(localeappKey, data).then(({ response, body }) => {
+      console.log(body);
+    }).catch((err) => console.error(err));
   }
 }
 
@@ -61,7 +65,7 @@ function pull(rootFolder, targetPath, locale) {
         const ymlLocale = jsonToYml({ [l[0]]: l[1] });
         fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
       });
-    });
+    }).catch((err) => console.error(err));;
     const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
     const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
     return updatedFolders;
