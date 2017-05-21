@@ -5,7 +5,7 @@ Locale Organization Utility CLI to manage your translation files and sync them w
 
 [![npm version](https://img.shields.io/npm/v/louki.svg?style=flat-square)](https://www.npmjs.com/package/louki)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 
 #### Preface
