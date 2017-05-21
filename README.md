@@ -5,8 +5,6 @@ Locale Organization Utility CLI to manage your translation files and sync them w
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
-[![NPM](https://nodei.co/npm/louki.png?compact=true)](https://www.npmjs.com/package/louki)
-
 
 #### Preface
 When working with locales through [Localeapp](https://www.localeapp.com/), the files containing translation keys can become extremely large and complex to be easily managed. This tool tries to bring more organization within locales in a project by using folders to separate keys and compile them into a single file that can easily be synchronized with Localeapp.
