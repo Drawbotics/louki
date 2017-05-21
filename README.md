@@ -1,8 +1,9 @@
 # louki
 Locale Organization Utility CLI to manage your translation files and sync them with Localeapp. If your project uses [Localeapp](https://www.localeapp.com/) to manage locales translation remotely then this tool might come useful.
 
-[![npm version](https://img.shields.io/npm/v/louki.svg?style=flat-square)](https://www.npmjs.com/package/louki)
+[![NPM](https://nodei.co/npm/louki.png?compact=true)](https://www.npmjs.com/package/louki)
 
+[![npm version](https://img.shields.io/npm/v/louki.svg?style=flat-square)](https://www.npmjs.com/package/louki)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](LICENSE)
 
 
