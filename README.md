@@ -15,9 +15,7 @@ When working with locales through [Localeapp](https://www.localeapp.com/), the f
 
 ## Installation
 
-This package is most useful when installed globally, as CLI commands can just be ran through `louki [cmd]`, however it can be installed locally by project if necessary.
-
-1. Install `louki` locally if you already have `node` dependencies in your project:
+This package is most useful when installed globally, as CLI commands can just be ran through `louki [cmd]`, however it can be installed locally by project if necessary. Install `louki` locally if you already have `node` dependencies in your project:
 
  ```
  npm install louki
@@ -44,7 +42,7 @@ This package is most useful when installed globally, as CLI commands can just be
 To start using `louki` there is a minimal set up that needs to be taken care of first.
 
 Create a `.loukirc` file where all the paths and locale information for the `louki` commands is specified. A normal usage set up file looks like this
-```
+```json
 {
   "target": "locales",
   "source": "locales/src",
@@ -59,24 +57,16 @@ You should also add a line in your `.env` file (create one if you don't have it)
 ```
 LOCALEAPP_KEY="{your Localeapp key}"
 ```
-The key can be found in `Settings/API Key`. __DON'T__ commit this file as the key is secret. The key will be used to synchronise your files with the remote project.
+The key can be found in `Settings/API Key` in Localeapp. __DON'T__ commit this file as the key is secret. The key will be used to synchronise your files with the remote project.
 
 ### Commands
 There are 3 commands available:
-- __UPDATE__: Takes the contents of the source locales and compiles them into the single translation keys file, the default locale.
+- __UPDATE__: Takes the contents of the source files and compiles them into the single translation keys file, the default locale.
 - __PUSH__: Runs _UPDATE_ and then synchronises the local compiled translation with your remote Localeapp project. If your default locale is `en` it will compile everything to `en.yml` and push it to the project.
-- __PULL__: Will fetch _all_ the translations from Localeapp and update/create the individual locale files (e.g. `en.yml` and `fr.yml` if you have English and French translations). Then it will update your source files with any changes that might have been made on the remote project.
+- __PULL__: Will fetch _all_ the translations from Localeapp and update/create the individual locale files (e.g. `en.yml` and `fr.yml` if you have English and French translations). Then it will update your source files with any changes that might have been made on the remote project in the default locale.
 
-If you installed the package __locally__ you must run the commands with the following syntax:
-```
-npm run louki <cmd>
-```
-or
-```
-yarn louki <cmd>
-```
 
-If you installed the package globally you have access to the cli everywhere, thus you can run:
+If you installed the package globally you have access to the CLI everywhere, thus you can run:
 ```
 louki <cmd>
 ```
@@ -95,3 +85,65 @@ Were you to install `louki` locally, you can make your life easier by adding thi
 ```
 
 to be able to call `npm run louki update` or better, `yarn louki update`.
+
+
+### Folder structure
+
+Here is what a typical translation key file might look like:
+```yml
+en:
+  topics:
+    title: Some of the topics we cover
+    marketing:
+      title: Marketing
+      feedback: Leave us some feedback!
+      user_action:
+        save: Save file
+        cancel: Cancel
+    tech:
+      code: This is the code we use
+      installation: How to install our software
+  meta:
+    meta_1: Our brand
+    meta_2: Follow us
+  username: Your username
+  password: Your password
+  welcome: Welcome aboard!
+```
+
+It is safe to assume that any large website can grow up to having more than 1000 of these keys. Thus to arrange keys into categories (folders), something like the following might be easier to search and maintain:
+
+```
+src
+│
+├── topics/
+│   ├── marketing/
+│   │   └── index.yml
+│   │
+│   ├── tech/
+│   │   └── index.yml
+│   │
+│   ├── index.yml
+│   └── manifest.json
+│
+├── index.yml
+└── manifest.json
+```
+
+Where the contents of the `index.yml` files only contain key-value pairs, and the manifests contain the description of the folders within that directory. Thus the manifest in the `topics` folder would describe:
+
+```json
+{
+  "marketing": "{{marketing}}",
+  "technology": "{{tech}}"
+}
+```
+The key defines the actual translation key, and the value specifies the folder where the tool will look for the child keys. This is done so that one can name a folder differently from the actual key name. The index file in the `marketing` folder contains the keys found under the `marketing` key in the large file above.
+
+You may follow this example as a template for your own project. [Here](/examples) you can see the full example above with the folders and compiled file.
+
+
+
+## License
+
+MIT. See [LICENSE](LICENSE) for details.

@@ -1,0 +1,18 @@
+en:
+  topics:
+    title: Some of the topics we cover
+    marketing:
+      title: Marketing
+      feedback: Leave us some feedback!
+      user_action:
+        save: Save file
+        cancel: Cancel
+    tech:
+      code: This is the code we use
+      installation: How to install our software
+  meta:
+    meta_1: Our brand
+    meta_2: Follow us
+  username: Your username
+  password: Your password
+  welcome: Welcome aboard!
