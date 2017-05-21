@@ -63,15 +63,13 @@ function update(rootFolder, targetPath, locale) {
 
 function push(rootFolder, targetPath, locale) {
   update(rootFolder, targetPath, locale);
-
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
   } else {
     var filePath = targetPath + '/' + locale + '.yml';
     var data = _fs2.default.createReadStream(filePath);
-    (0, _api.localeappPush)(localeappKey, data).then(function (_ref) {
+    return (0, _api.localeappPush)(localeappKey, data).then(function (_ref) {
       var response = _ref.response,
           body = _ref.body;
 
@@ -83,9 +81,7 @@ function push(rootFolder, targetPath, locale) {
 }
 
 function pull(rootFolder, targetPath, locale) {
-
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
     return null;

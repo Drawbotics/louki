@@ -36,16 +36,14 @@ function update(rootFolder, targetPath, locale) {
 
 function push(rootFolder, targetPath, locale) {
   update(rootFolder, targetPath, locale);
-
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
-
   if (! localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
   }
   else {
     const filePath = `${targetPath}/${locale}.yml`;
     const data = fs.createReadStream(filePath);
-    localeappPush(localeappKey, data).then(({ response, body }) => {
+    return localeappPush(localeappKey, data).then(({ response, body }) => {
       console.log(`Successfully pushed ${locale}.yml to Localeapp`);
     }).catch((err) => console.error(err));
   }
@@ -53,9 +51,7 @@ function push(rootFolder, targetPath, locale) {
 
 
 function pull(rootFolder, targetPath, locale) {
-
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
-
   if (! localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
     return null;
