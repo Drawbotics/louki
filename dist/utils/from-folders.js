@@ -18,7 +18,7 @@ var _getSectionsTree2 = require('./get-sections-tree');
 
 var _getSectionsTree3 = _interopRequireDefault(_getSectionsTree2);
 
-var _utils = require('./utils');
+var _conversion = require('./conversion');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,7 +50,7 @@ function parseTree(rootFolder) {
 
   var index = (0, _lodash.find)(children, { extension: 'yml' });
   if (index) {
-    var translations = (0, _utils.ymlToJson)(index.content);
+    var translations = (0, _conversion.ymlToJson)(index.content);
     Object.assign(final, _extends({}, translations));
   }
 
@@ -59,5 +59,5 @@ function parseTree(rootFolder) {
 
 function fromFolders(rootFolder, locale) {
   var result = Object.assign({}, _defineProperty({}, locale, parseTree(rootFolder)));
-  return (0, _utils.jsonToYml)(result);
+  return (0, _conversion.jsonToYml)(result);
 }

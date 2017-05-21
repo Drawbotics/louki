@@ -5,41 +5,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = louki;
 
-var _fs = require('fs');
+var _pull = require('./pull');
 
-var _fs2 = _interopRequireDefault(_fs);
+var _pull2 = _interopRequireDefault(_pull);
 
-var _formData = require('form-data');
+var _push = require('./push');
 
-var _formData2 = _interopRequireDefault(_formData);
+var _push2 = _interopRequireDefault(_push);
 
-var _shelljs = require('shelljs');
+var _update = require('./update');
 
-var _shelljs2 = _interopRequireDefault(_shelljs);
-
-var _dotenv = require('dotenv');
-
-var _dotenv2 = _interopRequireDefault(_dotenv);
-
-var _get = require('lodash/get');
-
-var _get2 = _interopRequireDefault(_get);
-
-var _fromFolders = require('./from-folders');
-
-var _fromFolders2 = _interopRequireDefault(_fromFolders);
-
-var _toFolders = require('./to-folders');
-
-var _toFolders2 = _interopRequireDefault(_toFolders);
-
-var _utils = require('./utils');
-
-var _api = require('./api');
+var _update2 = _interopRequireDefault(_update);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 /**
   AVAILABLE COMMANDS:
@@ -50,69 +28,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     also disect the large translation file (en.yml) and replace the contents of the index files.
 **/
 
-// remember to add try catch for file operations
-function update(rootFolder, targetPath, locale) {
-  var finalTranslation = (0, _fromFolders2.default)(rootFolder, locale);
-  try {
-    _fs2.default.writeFileSync(targetPath + '/' + locale + '.yml', finalTranslation); // file type is hardcoded for now
-  } catch (err) {
-    console.error(err);
-  }
-  return finalTranslation;
-}
-
-function push(rootFolder, targetPath, locale) {
-  update(rootFolder, targetPath, locale);
-  var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-  if (!localeappKey) {
-    console.error('No localeapp project key found in .env! Please specify one');
-  } else {
-    var filePath = targetPath + '/' + locale + '.yml';
-    var data = _fs2.default.createReadStream(filePath);
-    return (0, _api.localeappPush)(localeappKey, data).then(function (_ref) {
-      var response = _ref.response,
-          body = _ref.body;
-
-      console.log('Successfully pushed ' + locale + '.yml to Localeapp');
-    }).catch(function (err) {
-      return console.error(err);
-    });
-  }
-}
-
-function pull(rootFolder, targetPath, locale) {
-  var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-  if (!localeappKey) {
-    console.error('No localeapp project key found in .env! Please specify one');
-    return null;
-  } else {
-    return (0, _api.localeappPull)(localeappKey).then(function (_ref2) {
-      var response = _ref2.response,
-          body = _ref2.body;
-
-      var localesArray = (0, _utils.ymlToJson)(body);
-      console.log('Successfully pulled locales ' + Object.keys(localesArray).join(', ') + ' from Localeapp');
-      Object.entries(localesArray).map(function (l) {
-        var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
-        _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
-      });
-      var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
-      var updatedFolders = (0, _toFolders2.default)(rootFolder, compiledLocale, locale);
-      console.log('Folders updated');
-      return updatedFolders;
-    }).catch(function (err) {
-      return console.error(err);
-    });
-  }
-}
-
 function louki(command, rootFolder, targetPath, defaultLocale) {
   if (command === 'update') {
-    return update(rootFolder, targetPath, defaultLocale);
+    return (0, _update2.default)(rootFolder, targetPath, defaultLocale);
   } else if (command === 'push') {
-    return push(rootFolder, targetPath, defaultLocale);
+    return (0, _push2.default)(rootFolder, targetPath, defaultLocale);
   } else if (command === 'pull') {
-    return pull(rootFolder, targetPath, defaultLocale);
+    return (0, _pull2.default)(rootFolder, targetPath, defaultLocale);
   } else {
     console.error('Command not found');
     return;

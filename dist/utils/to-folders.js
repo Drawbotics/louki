@@ -19,7 +19,7 @@ var _getSectionsTree2 = require('./get-sections-tree');
 
 var _getSectionsTree3 = _interopRequireDefault(_getSectionsTree2);
 
-var _utils = require('./utils');
+var _conversion = require('./conversion');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73,7 +73,7 @@ function parseTranslation(json, rootFolder) {
   }
 
   // now replace the rest in the manifest
-  _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _utils.jsonToYml)(json));
+  _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _conversion.jsonToYml)(json));
 
   // add new contents of the yml (not parsed)
   Object.assign(final, {
@@ -84,6 +84,6 @@ function parseTranslation(json, rootFolder) {
 }
 
 function toFolders(rootFolder, target, locale) {
-  var strippedTarget = (0, _utils.ymlToJson)(target)[locale];
+  var strippedTarget = (0, _conversion.ymlToJson)(target)[locale];
   return parseTranslation(strippedTarget, rootFolder);
 }

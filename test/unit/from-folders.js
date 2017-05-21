@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import path from 'path';
 import fs from 'fs';
 
-import fromFolders from '../../src/from-folders';
+import fromFolders from '../../src/utils/from-folders';
 
 
 describe('FROM FOLDERS EXAMPLE', function() {

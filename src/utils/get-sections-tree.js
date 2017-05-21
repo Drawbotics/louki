@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const { includes } = require('lodash');
+import fs from 'fs';
+import path from 'path';
+import includes from 'lodash/includes';
 
 
 function dirTree(dirPath, extensions) {

@@ -3,7 +3,7 @@ import { find, isEmpty, omit, cloneDeep } from 'lodash';
 import fs from 'fs';
 
 import getSectionsTree from './get-sections-tree';
-import { ymlToJson, jsonToYml } from './utils';
+import { ymlToJson, jsonToYml } from './conversion';
 
 
 function parseTranslation(json, rootFolder) {

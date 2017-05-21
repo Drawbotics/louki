@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { get } from 'lodash';
 
-import toFolders from '../../src/to-folders';
+import toFolders from '../../src/utils/to-folders';
 
 
 describe('TO FOLDERS EXAMPLE', () => {

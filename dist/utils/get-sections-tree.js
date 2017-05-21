@@ -1,32 +1,40 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
+var _fs = require('fs');
 
-var _require = require('lodash'),
-    includes = _require.includes;
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+var _includes = require('lodash/includes');
+
+var _includes2 = _interopRequireDefault(_includes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function dirTree(dirPath, extensions) {
-  var name = path.basename(dirPath);
+  var name = _path2.default.basename(dirPath);
   var item = { path: dirPath, name: name };
 
   var stats = void 0;
   try {
-    stats = fs.statSync(dirPath);
+    stats = _fs2.default.statSync(dirPath);
   } catch (err) {
     return null;
   }
 
   if (stats.isFile() && !name.startsWith('.')) {
-    var ext = path.extname(dirPath).toLowerCase().slice(1);
-    if (extensions && !includes(extensions, ext)) {
+    var ext = _path2.default.extname(dirPath).toLowerCase().slice(1);
+    if (extensions && !(0, _includes2.default)(extensions, ext)) {
       return null;
     }
     item.extension = ext;
   } else if (stats.isDirectory()) {
     try {
-      item.children = fs.readdirSync(dirPath).map(function (child) {
-        return dirTree(path.join(dirPath, child), extensions);
+      item.children = _fs2.default.readdirSync(dirPath).map(function (child) {
+        return dirTree(_path2.default.join(dirPath, child), extensions);
       }).filter(function (e) {
         return !!e;
       });
@@ -52,7 +60,7 @@ function getContents(obj) {
       });
     } else {
       return Object.assign({}, obj, {
-        content: fs.readFileSync(obj.path, 'utf8')
+        content: _fs2.default.readFileSync(obj.path, 'utf8')
       });
     }
   }

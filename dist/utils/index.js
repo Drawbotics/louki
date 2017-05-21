@@ -3,19 +3,41 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.jsonToYml = jsonToYml;
-exports.ymlToJson = ymlToJson;
+exports.toFolders = exports.fromFolders = undefined;
 
-var _jsYaml = require('js-yaml');
+var _api = require('./api');
 
-var _jsYaml2 = _interopRequireDefault(_jsYaml);
+Object.keys(_api).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _api[key];
+    }
+  });
+});
+
+var _conversion = require('./conversion');
+
+Object.keys(_conversion).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _conversion[key];
+    }
+  });
+});
+
+var _fromFolders2 = require('./from-folders');
+
+var _fromFolders3 = _interopRequireDefault(_fromFolders2);
+
+var _toFolders2 = require('./to-folders');
+
+var _toFolders3 = _interopRequireDefault(_toFolders2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function jsonToYml(json) {
-  return _jsYaml2.default.safeDump(json);
-}
-
-function ymlToJson(yml) {
-  return _jsYaml2.default.safeLoad(yml, null, null, 'JSON_SCHEMA');
-}
+exports.fromFolders = _fromFolders3.default;
+exports.toFolders = _toFolders3.default;

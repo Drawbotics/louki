@@ -2,7 +2,7 @@ import path from 'path';
 import { find, isEmpty } from 'lodash';
 
 import getSectionsTree from './get-sections-tree';
-import { ymlToJson, jsonToYml } from './utils';
+import { ymlToJson, jsonToYml } from './conversion';
 
 
 function parseTree(rootFolder) {
