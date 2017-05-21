@@ -1,11 +1,8 @@
 # louki
-Locale Organization Utility CLI to manage your translation files and sync them with Localeapp.
-
-### Preface
-If your project uses [Localeapp](https://www.localeapp.com/) to manage locales translation remotely  then this tool might come useful.
+Locale Organization Utility CLI to manage your translation files and sync them with Localeapp. If your project uses [Localeapp](https://www.localeapp.com/) to manage locales translation remotely then this tool might come useful.
 
 
-## Intro
+#### Preface
 When working with locales through [Localeapp](https://www.localeapp.com/), the files containing translation keys can become extremely large and complex to be easily managed. This tool tries to bring more organization within locales in a project by using folders to separate keys and compile them into a single file that can easily be synchronized with Localeapp.
 
 ## Features
@@ -38,7 +35,7 @@ This package is most useful when installed globally, as CLI commands can just be
 
 ## Usage
 
-### Setup
+#### Setup
 To start using `louki` there is a minimal set up that needs to be taken care of first.
 
 Create a `.loukirc` file where all the paths and locale information for the `louki` commands is specified. A normal usage set up file looks like this
@@ -59,7 +56,7 @@ LOCALEAPP_KEY="{your Localeapp key}"
 ```
 The key can be found in `Settings/API Key` in Localeapp. __DON'T__ commit this file as the key is secret. The key will be used to synchronise your files with the remote project.
 
-### Commands
+#### Commands
 There are 3 commands available:
 - __UPDATE__: Takes the contents of the source files and compiles them into the single translation keys file, the default locale.
 - __PUSH__: Runs _UPDATE_ and then synchronises the local compiled translation with your remote Localeapp project. If your default locale is `en` it will compile everything to `en.yml` and push it to the project.
@@ -87,7 +84,7 @@ Were you to install `louki` locally, you can make your life easier by adding thi
 to be able to call `npm run louki update` or better, `yarn louki update`.
 
 
-### Folder structure
+#### Folder structure
 
 Here is what a typical translation key file might look like:
 ```yml
