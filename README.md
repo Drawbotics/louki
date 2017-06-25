@@ -57,7 +57,7 @@ Where `target` is the path to the folder where your compiled translation keys fi
 You should also add a line in your `.env` file (create one if you don't have it) with the field
 
 ```
-LOCALEAPP_KEY="{your Localeapp key}"
+LOCALEAPP_KEY="your Localeapp key"
 ```
 The key can be found in `Settings/API Key` in Localeapp. __DON'T__ commit this file as the key is secret. The key will be used to synchronise your files with the remote project.
 
