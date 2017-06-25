@@ -27,6 +27,9 @@ program
   .command('pull')
   .description('To pull from localeapp and update all files (compiled and src)');
 
+program
+  .option('-w, --watch', 'Watch files (calls update on changes)');
+
 program.parse(process.argv);
 
 
@@ -59,5 +62,7 @@ else {
   var targetPath = rootPath + '/' + localeTarget;
   var sourcePath = rootPath + '/' + localeSource;
 
-  louki(cmdValue, sourcePath, targetPath, localeValue || defaultLocale, localeValue == defaultLocale);
+  var extra = { pushDefault: localeValue == defaultLocale, watchFiles: program.watch };
+
+  louki(cmdValue, sourcePath, targetPath, localeValue || defaultLocale, extra);
 }

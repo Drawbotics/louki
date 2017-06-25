@@ -1,6 +1,9 @@
+import watch from 'node-watch';
+
 import pull from './pull';
 import push from './push';
 import update from './update';
+
 
 /**
   AVAILABLE COMMANDS:
@@ -12,12 +15,23 @@ import update from './update';
 **/
 
 
-export default function louki(command, rootFolder, targetPath, defaultLocale) {
+export default function louki(command, rootFolder, targetPath, defaultLocale, extra) {
+  const { pushDefault, watchFiles } = extra;
   if (command === 'update') {
-    return update(rootFolder, targetPath, defaultLocale);
+    if (watchFiles) {
+      console.log('Louki watching for changes in root folder...');
+      update(rootFolder, targetPath, defaultLocale); // run once
+      watch(rootFolder, { recursive: true, filter: /\.(json|yml)$/ }, (evt, fileName) => {
+        console.log(evt, fileName.replace(rootFolder, ''));
+        return update(rootFolder, targetPath, defaultLocale);
+      });
+    }
+    else {
+      return update(rootFolder, targetPath, defaultLocale);
+    }
   }
   else if (command === 'push') {
-    return push(rootFolder, targetPath, defaultLocale);
+    return push(rootFolder, targetPath, defaultLocale, pushDefault);
   }
   else if (command === 'pull') {
     return pull(rootFolder, targetPath, defaultLocale);

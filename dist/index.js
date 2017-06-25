@@ -5,6 +5,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = louki;
 
+var _nodeWatch = require('node-watch');
+
+var _nodeWatch2 = _interopRequireDefault(_nodeWatch);
+
 var _pull = require('./pull');
 
 var _pull2 = _interopRequireDefault(_pull);
@@ -28,11 +32,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     also disect the large translation file (en.yml) and replace the contents of the index files.
 **/
 
-function louki(command, rootFolder, targetPath, defaultLocale) {
+function louki(command, rootFolder, targetPath, defaultLocale, extra) {
+  var pushDefault = extra.pushDefault,
+      watchFiles = extra.watchFiles;
+
   if (command === 'update') {
-    return (0, _update2.default)(rootFolder, targetPath, defaultLocale);
+    if (watchFiles) {
+      console.log('Louki watching for changes in root folder...');
+      (0, _update2.default)(rootFolder, targetPath, defaultLocale); // run once
+      (0, _nodeWatch2.default)(rootFolder, { recursive: true, filter: /\.(json|yml)$/ }, function (evt, fileName) {
+        console.log(evt, fileName.replace(rootFolder, ''));
+        return (0, _update2.default)(rootFolder, targetPath, defaultLocale);
+      });
+    } else {
+      return (0, _update2.default)(rootFolder, targetPath, defaultLocale);
+    }
   } else if (command === 'push') {
-    return (0, _push2.default)(rootFolder, targetPath, defaultLocale);
+    return (0, _push2.default)(rootFolder, targetPath, defaultLocale, pushDefault);
   } else if (command === 'pull') {
     return (0, _pull2.default)(rootFolder, targetPath, defaultLocale);
   } else {
