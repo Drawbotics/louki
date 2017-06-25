@@ -88,6 +88,19 @@ Were you to install `louki` locally, you can make your life easier by adding thi
 
 to be able to call `npm run louki update` or better, `yarn louki update`.
 
+#### Options
+
+```
+louki push [locale]
+```
+
+This option allows you to push a particular locale to the remote Localeapp project. Can be useful when pushing existing non-default translations to Localeapp. E.g. `louki push fr` will push the `fr.yml` file.
+
+```
+louki update --watch
+```
+The `--watch` flag (also available as `-w`) will enable watching on all files living in the defined source folder (see [Setup](#setup)), and will call the `update` function on every change.
+
 
 #### Folder structure
 
