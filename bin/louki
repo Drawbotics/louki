@@ -9,9 +9,10 @@ var appCfg = require('rc')('louki', conf);
 
 program
   .version('0.0.1')
-  .arguments('<cmd>')
-  .action(function (cmd) {
-    cmdValue = cmd;
+  .arguments('<cmd> [locale]')
+  .action(function (cmd, locale) {
+    cmdValue = cmd ;
+    localeValue = locale;
   });
 
 program
@@ -58,5 +59,5 @@ else {
   var targetPath = rootPath + '/' + localeTarget;
   var sourcePath = rootPath + '/' + localeSource;
 
-  louki(cmdValue, sourcePath, targetPath, defaultLocale);
+  louki(cmdValue, sourcePath, targetPath, localeValue || defaultLocale, localeValue == defaultLocale);
 }

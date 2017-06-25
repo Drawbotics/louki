@@ -6,8 +6,10 @@ import { localeappPush } from './utils';
 import update from './update';
 
 
-export default function push(rootFolder, targetPath, locale) {
-  update(rootFolder, targetPath, locale);
+export default function push(rootFolder, targetPath, locale, pushDefault) {
+  if (pushDefault) {
+    update(rootFolder, targetPath, locale); // only build if default locale is pushed
+  }
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
   if (! localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
