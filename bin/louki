@@ -30,6 +30,10 @@ program
 program
   .option('-w, --watch', 'Watch files (calls update on changes)');
 
+
+program
+  .option('-r, --raw', 'Pull without rebuilding sources');
+
 program.parse(process.argv);
 
 
@@ -62,7 +66,11 @@ else {
   var targetPath = rootPath + '/' + localeTarget;
   var sourcePath = rootPath + '/' + localeSource;
 
-  var extra = { pushDefault: localeValue == defaultLocale, watchFiles: program.watch };
+  var extra = {
+    pushDefault: localeValue == defaultLocale,
+    watchFiles: program.watch,
+    raw: program.raw,
+  };
 
   louki(cmdValue, sourcePath, targetPath, localeValue || defaultLocale, extra);
 }

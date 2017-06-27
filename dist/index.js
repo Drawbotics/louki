@@ -34,7 +34,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function louki(command, rootFolder, targetPath, defaultLocale, extra) {
   var pushDefault = extra.pushDefault,
-      watchFiles = extra.watchFiles;
+      watchFiles = extra.watchFiles,
+      raw = extra.raw;
 
   if (command === 'update') {
     if (watchFiles) {
@@ -50,7 +51,7 @@ function louki(command, rootFolder, targetPath, defaultLocale, extra) {
   } else if (command === 'push') {
     return (0, _push2.default)(rootFolder, targetPath, defaultLocale, pushDefault);
   } else if (command === 'pull') {
-    return (0, _pull2.default)(rootFolder, targetPath, defaultLocale);
+    return (0, _pull2.default)(rootFolder, targetPath, defaultLocale, raw);
   } else {
     console.error('Command not found');
     return;

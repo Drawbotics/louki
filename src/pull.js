@@ -10,7 +10,7 @@ import {
 } from './utils';
 
 
-export default function pull(rootFolder, targetPath, locale) {
+export default function pull(rootFolder, targetPath, locale, raw=false) {
   const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
   if (! localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
@@ -24,6 +24,7 @@ export default function pull(rootFolder, targetPath, locale) {
         const ymlLocale = jsonToYml({ [l[0]]: l[1] });
         fs.writeFileSync(`${targetPath}/${l[0]}.yml`, ymlLocale);
       });
+      if (raw) return {};
       const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
       const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
       console.log('Folders updated');

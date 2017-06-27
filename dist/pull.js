@@ -24,6 +24,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function pull(rootFolder, targetPath, locale) {
+  var raw = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
   if (!localeappKey) {
     console.error('No localeapp project key found in .env! Please specify one');
@@ -39,6 +41,7 @@ function pull(rootFolder, targetPath, locale) {
         var ymlLocale = (0, _utils.jsonToYml)(_defineProperty({}, l[0], l[1]));
         _fs2.default.writeFileSync(targetPath + '/' + l[0] + '.yml', ymlLocale);
       });
+      if (raw) return {};
       var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
       var updatedFolders = (0, _utils.toFolders)(rootFolder, compiledLocale, locale);
       console.log('Folders updated');

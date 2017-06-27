@@ -16,7 +16,7 @@ import update from './update';
 
 
 export default function louki(command, rootFolder, targetPath, defaultLocale, extra) {
-  const { pushDefault, watchFiles } = extra;
+  const { pushDefault, watchFiles, raw } = extra;
   if (command === 'update') {
     if (watchFiles) {
       console.log('Louki watching for changes in root folder...');
@@ -34,7 +34,7 @@ export default function louki(command, rootFolder, targetPath, defaultLocale, ex
     return push(rootFolder, targetPath, defaultLocale, pushDefault);
   }
   else if (command === 'pull') {
-    return pull(rootFolder, targetPath, defaultLocale);
+    return pull(rootFolder, targetPath, defaultLocale, raw);
   }
   else {
     console.error('Command not found');
