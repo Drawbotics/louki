@@ -26,7 +26,9 @@ var _update2 = _interopRequireDefault(_update);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function push(rootFolder, targetPath, locale, pushDefault) {
-  if (pushDefault) {
+  var raw = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
+
+  if (pushDefault && !raw) {
     (0, _update2.default)(rootFolder, targetPath, locale); // only build if default locale is pushed
   }
   var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);

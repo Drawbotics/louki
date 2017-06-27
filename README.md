@@ -101,6 +101,11 @@ louki update --watch
 ```
 The `--watch` flag (also available as `-w`) will enable watching on all files living in the defined source folder (see [Setup](#setup)), and will call the `update` function on every change.
 
+```
+louki pull --raw
+louki push --raw
+```
+The `--raw` flag will skip building sources when pulling from Localeapp. This is available in case you are using Louki simply to communicate with the remote project, and the source folders feature is not used.
 
 #### Folder structure
 

@@ -49,7 +49,7 @@ function louki(command, rootFolder, targetPath, defaultLocale, extra) {
       return (0, _update2.default)(rootFolder, targetPath, defaultLocale);
     }
   } else if (command === 'push') {
-    return (0, _push2.default)(rootFolder, targetPath, defaultLocale, pushDefault);
+    return (0, _push2.default)(rootFolder, targetPath, defaultLocale, pushDefault, raw);
   } else if (command === 'pull') {
     return (0, _pull2.default)(rootFolder, targetPath, defaultLocale, raw);
   } else {

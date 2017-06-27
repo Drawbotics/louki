@@ -31,7 +31,7 @@ export default function louki(command, rootFolder, targetPath, defaultLocale, ex
     }
   }
   else if (command === 'push') {
-    return push(rootFolder, targetPath, defaultLocale, pushDefault);
+    return push(rootFolder, targetPath, defaultLocale, pushDefault, raw);
   }
   else if (command === 'pull') {
     return pull(rootFolder, targetPath, defaultLocale, raw);
