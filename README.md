@@ -88,6 +88,8 @@ Were you to install `louki` locally, you can make your life easier by adding thi
 
 to be able to call `npm run louki update` or better, `yarn louki update`.
 
+**NOTE:** when using options like the ones described below, you will need to include the `--` parameter to ensure the options are passed to Louki and not Yarn. E.g. `yarn louki pull -- --raw`.
+
 #### Options
 
 ```
