@@ -31,7 +31,6 @@ function parseTranslation(json, rootFolder) {
 
   var manifestFile = (0, _lodash.find)(children, { extension: 'json' });
   var final = {};
-
   if (manifestFile) {
     var manifest = JSON.parse(manifestFile.content);
     var newJson = {};
@@ -70,6 +69,17 @@ function parseTranslation(json, rootFolder) {
     });
 
     _fs2.default.writeFileSync(rootFolder + '/manifest.json', JSON.stringify(newJson, null, 2));
+  }
+
+  if (!manifestFile && children.length > 1) {
+    children.map(function (file) {
+      var name = file.name.split('.')[0];
+      var content = json[name];
+      if (content) {
+        _fs2.default.writeFileSync(rootFolder + '/' + name + '.yml', (0, _conversion.jsonToYml)(content));
+        json = (0, _lodash.omit)(json, name);
+      }
+    });
   }
 
   // now replace the rest in the manifest

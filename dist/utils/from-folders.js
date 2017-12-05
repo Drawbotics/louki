@@ -48,10 +48,17 @@ function parseTree(rootFolder) {
     }
   }
 
-  var index = (0, _lodash.find)(children, { extension: 'yml' });
-  if (index) {
-    var translations = (0, _conversion.ymlToJson)(index.content);
-    Object.assign(final, _extends({}, translations));
+  var files = (0, _lodash.filter)(children, { extension: 'yml' });
+  if (files) {
+    files.map(function (f) {
+      var translations = (0, _conversion.ymlToJson)(f.content);
+      var name = f.name.split('.')[0];
+      if (name === 'index') {
+        Object.assign(final, _extends({}, translations));
+      } else {
+        Object.assign(final, _defineProperty({}, name, translations));
+      }
+    });
   }
 
   return final;
