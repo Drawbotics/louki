@@ -134,7 +134,9 @@ src
 │
 ├── topics/
 │   ├── marketing/
-│   │   └── index.yml
+│   │   ├── index.yml
+│   │   ├── newsletters.yml
+│   │   └── website.yml
 │   │
 │   ├── tech/
 │   │   └── index.yml
@@ -146,7 +148,7 @@ src
 └── manifest.json
 ```
 
-Where the contents of the `index.yml` files only contain key-value pairs, and the manifests contain the description of the folders within that directory. Thus the manifest in the `topics` folder would describe:
+Where the contents of the `index.yml` (or other names `.yml`) files only contain key-value pairs, and the manifests contain the description of the folders within that directory. Thus the manifest in the `topics` folder would describe:
 
 ```json
 {
@@ -155,6 +157,11 @@ Where the contents of the `index.yml` files only contain key-value pairs, and th
 }
 ```
 The key defines the actual translation key, and the value specifies the folder where the tool will look for the child keys. This is done so that one can name a folder differently from the actual key name. The index file in the `marketing` folder contains the keys found under the `marketing` key in the large file above.
+
+The general consensus is that:
+- Any keys shared between folders (somewhat categories) should go in the `index.yml` at the root of each folder
+- Keys shared between between elements (e.g. the different files within a folder without `manifest.json`) should go in the `index.yml` at the root of that folder. `topics/marketing/index.yml` in the example above for keys shared between `newsletters` and `website`
+- Keys only used in a particular element should live within that file and are not used anywhere else; `newsletter.yml` or `website.yml` in the example above
 
 You may follow this example as a template for your own project. [Here](/examples) you can see the full example above with the folders and compiled file.
 
