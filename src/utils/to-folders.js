@@ -10,7 +10,6 @@ function parseTranslation(json, rootFolder) {
   const { children } = getSectionsTree(rootFolder);
   const manifestFile = find(children, { extension: 'json' });
   const final = {};
-
   if (manifestFile) {
     const manifest = JSON.parse(manifestFile.content);
     const newJson = {};
@@ -57,6 +56,17 @@ function parseTranslation(json, rootFolder) {
     });
 
     fs.writeFileSync(`${rootFolder}/manifest.json`, JSON.stringify(newJson, null, 2));
+  }
+
+  if (!manifestFile && children.length > 1 ) {
+    children.map((file) => {
+      const name = file.name.split('.')[0];
+      const content = json[name];
+      if (content) {
+        fs.writeFileSync(`${rootFolder}/${name}.yml`, jsonToYml(content));
+        json = omit(json, name);
+      }
+    });
   }
 
   // now replace the rest in the manifest
