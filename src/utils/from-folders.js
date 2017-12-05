@@ -1,5 +1,5 @@
 import path from 'path';
-import { find, isEmpty } from 'lodash';
+import { find, filter, isEmpty } from 'lodash';
 
 import getSectionsTree from './get-sections-tree';
 import { ymlToJson, jsonToYml } from './conversion';
@@ -34,11 +34,21 @@ function parseTree(rootFolder) {
     }
   }
 
-  const index = find(children, { extension: 'yml' });
-  if (index) {
-    const translations = ymlToJson(index.content);
-    Object.assign(final, {
-      ...translations,
+  const files = filter(children, { extension: 'yml' });
+  if (files) {
+    files.map((f) => {
+      const translations = ymlToJson(f.content);
+      const name = f.name.split('.')[0];
+      if (name === 'index') {
+        Object.assign(final, {
+          ...translations,
+        });
+      }
+      else {
+        Object.assign(final, {
+          [name]: translations,
+        });
+      }
     });
   }
 
