@@ -31,6 +31,9 @@ function parseTranslation(json, rootFolder) {
 
   var manifestFile = (0, _lodash.find)(children, { extension: 'json' });
   var final = {};
+  if (!json || (0, _lodash.isEmpty)(json)) {
+    return final;
+  }
   if (manifestFile) {
     var manifest = JSON.parse(manifestFile.content);
     var newJson = {};

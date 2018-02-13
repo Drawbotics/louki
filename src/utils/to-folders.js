@@ -10,6 +10,9 @@ function parseTranslation(json, rootFolder) {
   const { children } = getSectionsTree(rootFolder);
   const manifestFile = find(children, { extension: 'json' });
   const final = {};
+  if (! json || isEmpty(json)) {
+    return final;
+  }
   if (manifestFile) {
     const manifest = JSON.parse(manifestFile.content);
     const newJson = {};
