@@ -54,12 +54,12 @@ Create a `.loukirc` file where all the paths and locale information for the `lou
 
 Where `target` is the path to the folder where your compiled translation keys file will be written, `source` is the root of your folder structure and `default` is the default language of your locales. `target` is also where all the locale files will be written to when pulling from Localeapp. In this example all local translation keys are in English, and the generated file (in `/locales`) is `en.yml`. It is this file that is then synchronised with Localeapp. The default locale should match the one in your remote  Localeapp project.
 
-You should also add a line in your `.env` file (create one if you don't have it) with the field
+To enable syncinc between localeapp and the local files (with push and pull) you have to first initialise louki with the localeapp project key with
 
 ```
-LOCALEAPP_KEY="your Localeapp key"
+yarn louki init <your Localeapp key>
 ```
-The key can be found in `Settings/API Key` in Localeapp. __DON'T__ commit this file as the key is secret. The key will be used to synchronise your files with the remote project.
+The key can be found in `Settings/API Key` in Localeapp. This file is not commited to it will stay secret in your local environment. The key will be used to synchronise your files with the remote project.
 
 #### Commands
 There are 3 commands available:
