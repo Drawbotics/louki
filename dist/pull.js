@@ -13,9 +13,9 @@ var _get = require('lodash/get');
 
 var _get2 = _interopRequireDefault(_get);
 
-var _dotenv = require('dotenv');
+var _path = require('path');
 
-var _dotenv2 = _interopRequireDefault(_dotenv);
+var _path2 = _interopRequireDefault(_path);
 
 var _utils = require('./utils');
 
@@ -23,14 +23,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var configPath = _path2.default.resolve(__dirname, '../.config');
+
 function pull(rootFolder, targetPath, locale) {
   var raw = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
-  var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-  if (!localeappKey) {
-    console.error('No localeapp project key found in .env! Please specify one');
-    return null;
-  } else {
+  try {
+    var localeappKey = _fs2.default.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     return (0, _utils.localeappPull)(localeappKey).then(function (_ref) {
       var response = _ref.response,
           body = _ref.body;
@@ -49,5 +48,7 @@ function pull(rootFolder, targetPath, locale) {
     }).catch(function (err) {
       return console.error(err);
     });
+  } catch (err) {
+    console.error('No localeapp project key found in! Please specify one with the init command');
   }
 }

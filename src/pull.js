@@ -1,6 +1,6 @@
 import fs from 'fs';
 import get from 'lodash/get';
-import dotenv from 'dotenv';
+import path from 'path';
 
 import {
   localeappPull,
@@ -10,13 +10,12 @@ import {
 } from './utils';
 
 
+const configPath = path.resolve(__dirname, '../.config');
+
+
 export default function pull(rootFolder, targetPath, locale, raw=false) {
-  const localeappKey = get(dotenv.config(), 'parsed.LOCALEAPP_KEY', null);
-  if (! localeappKey) {
-    console.error('No localeapp project key found in .env! Please specify one');
-    return null;
-  }
-  else {
+  try {
+    const localeappKey = fs.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     return localeappPull(localeappKey).then(({ response, body }) => {
       const localesArray = ymlToJson(body);
       console.log(`Successfully pulled locales ${Object.keys(localesArray).join(', ')} from Localeapp`);
@@ -30,5 +29,8 @@ export default function pull(rootFolder, targetPath, locale, raw=false) {
       console.log('Folders updated');
       return updatedFolders;
     }).catch((err) => console.error(err));
+  }
+  catch (err) {
+    console.error('No localeapp project key found in! Please specify one with the init command');
   }
 }

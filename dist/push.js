@@ -13,9 +13,9 @@ var _get = require('lodash/get');
 
 var _get2 = _interopRequireDefault(_get);
 
-var _dotenv = require('dotenv');
+var _path = require('path');
 
-var _dotenv2 = _interopRequireDefault(_dotenv);
+var _path2 = _interopRequireDefault(_path);
 
 var _utils = require('./utils');
 
@@ -25,16 +25,16 @@ var _update2 = _interopRequireDefault(_update);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var configPath = _path2.default.resolve(__dirname, '../.config');
+
 function push(rootFolder, targetPath, locale, pushDefault) {
   var raw = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
   if (pushDefault && !raw) {
     (0, _update2.default)(rootFolder, targetPath, locale); // only build if default locale is pushed
   }
-  var localeappKey = (0, _get2.default)(_dotenv2.default.config(), 'parsed.LOCALEAPP_KEY', null);
-  if (!localeappKey) {
-    console.error('No localeapp project key found in .env! Please specify one');
-  } else {
+  try {
+    var localeappKey = _fs2.default.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     var filePath = targetPath + '/' + locale + '.yml';
     var data = _fs2.default.createReadStream(filePath);
     return (0, _utils.localeappPush)(localeappKey, data).then(function (_ref) {
@@ -45,5 +45,7 @@ function push(rootFolder, targetPath, locale, pushDefault) {
     }).catch(function (err) {
       return console.error(err);
     });
+  } catch (err) {
+    console.log('No localeapp project key found in! Please specify one with the init command');
   }
 }

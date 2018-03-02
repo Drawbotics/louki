@@ -21,6 +21,10 @@ var _update = require('./update');
 
 var _update2 = _interopRequireDefault(_update);
 
+var _init = require('./init');
+
+var _init2 = _interopRequireDefault(_init);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -32,12 +36,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     also disect the large translation file (en.yml) and replace the contents of the index files.
 **/
 
-function louki(command, rootFolder, targetPath, defaultLocale, extra) {
+function louki(command, rootFolder, targetPath, option, extra) {
   var pushDefault = extra.pushDefault,
       watchFiles = extra.watchFiles,
       raw = extra.raw;
 
-  if (command === 'update') {
+  var defaultLocale = option;
+  if (command === 'init') {
+    (0, _init2.default)(option);
+  } else if (command === 'update') {
     if (watchFiles) {
       console.log('Louki watching for changes in root folder...');
       (0, _update2.default)(rootFolder, targetPath, defaultLocale); // run once

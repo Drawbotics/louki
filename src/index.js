@@ -3,6 +3,7 @@ import watch from 'node-watch';
 import pull from './pull';
 import push from './push';
 import update from './update';
+import init from './init';
 
 
 /**
@@ -15,9 +16,13 @@ import update from './update';
 **/
 
 
-export default function louki(command, rootFolder, targetPath, defaultLocale, extra) {
+export default function louki(command, rootFolder, targetPath, option, extra) {
   const { pushDefault, watchFiles, raw } = extra;
-  if (command === 'update') {
+  const defaultLocale = option;
+  if (command === 'init') {
+    init(option);
+  }
+  else if (command === 'update') {
     if (watchFiles) {
       console.log('Louki watching for changes in root folder...');
       update(rootFolder, targetPath, defaultLocale); // run once

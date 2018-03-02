@@ -9,11 +9,15 @@ var appCfg = require('rc')('louki', conf);
 
 program
   .version('0.0.1')
-  .arguments('<cmd> [locale]')
-  .action(function (cmd, locale) {
+  .arguments('<cmd> [options]')
+  .action(function (cmd, options) {
     cmdValue = cmd ;
-    localeValue = locale;
+    optionsValue = options;
   });
+
+program
+  .command('init')
+  .description('To initialise louki with the localeapp secret key. Required arguent: secret key.');
 
 program
   .command('update')
@@ -41,7 +45,8 @@ if (typeof cmdValue === 'undefined') {
   console.error('no command given!');
   process.exit(1);
 }
-else if (! ['update', 'push', 'pull'].includes(cmdValue)) {
+
+else if (! ['update', 'push', 'pull', 'init'].includes(cmdValue)) {
   console.error('Command not supported or recognised');
   process.exit(1);
 }
@@ -56,6 +61,12 @@ else {
   var localeSource = appCfg.source;
   var defaultLocale = appCfg.default;
 
+
+  if (cmdValue === 'init' && ! optionsValue) {
+    console.error('Localeapp key not specified');
+    process.exit(1);
+  }
+
   if (typeof localeTarget === 'undefined'
     || typeof localeSource === 'undefined'
     || typeof defaultLocale === 'undefined') {
@@ -67,10 +78,10 @@ else {
   var sourcePath = rootPath + '/' + localeSource;
 
   var extra = {
-    pushDefault: localeValue == defaultLocale,
+    pushDefault: optionsValue == defaultLocale,
     watchFiles: program.watch,
     raw: program.raw,
   };
 
-  louki(cmdValue, sourcePath, targetPath, localeValue || defaultLocale, extra);
+  louki(cmdValue, sourcePath, targetPath, optionsValue || defaultLocale, extra);
 }
