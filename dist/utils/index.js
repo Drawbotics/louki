@@ -29,10 +29,15 @@ Object.keys(_conversion).forEach(function (key) {
   });
 });
 exports.getConfigPath = getConfigPath;
+exports.getProjectName = getProjectName;
 
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
 
 var _fromFolders2 = require('./from-folders');
 
@@ -54,5 +59,15 @@ function getConfigPath() {
   if (!_fs2.default.existsSync(directory) && create) {
     _fs2.default.mkdirSync(directory);
   }
-  return directory + '/config';
+  return directory + '/config.json';
+}
+
+function getProjectName() {
+  var pathToPackage = _path2.default.resolve('package.json');
+  var name = JSON.parse(_fs2.default.readFileSync(pathToPackage, 'utf8')).name;
+  if (!name) {
+    console.log('Missing required "name" in package.json');
+    process.exit();
+  }
+  return name;
 }

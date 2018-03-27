@@ -28,7 +28,8 @@ function pull(rootFolder, targetPath, locale) {
 
   try {
     var configPath = (0, _utils.getConfigPath)();
-    var localeappKey = _fs2.default.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
+    var projectName = (0, _utils.getProjectName)();
+    var localeappKey = JSON.parse(_fs2.default.readFileSync(configPath, 'utf8'))[projectName];
     return (0, _utils.localeappPull)(localeappKey).then(function (_ref) {
       var response = _ref.response,
           body = _ref.body;
@@ -48,6 +49,6 @@ function pull(rootFolder, targetPath, locale) {
       return console.error(err);
     });
   } catch (err) {
-    console.error('No localeapp project key found in! Please specify one with the init command');
+    console.error('No localeapp project key found! Please specify one with the init command');
   }
 }

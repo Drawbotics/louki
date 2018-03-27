@@ -8,13 +8,15 @@ import {
   jsonToYml,
   toFolders,
   getConfigPath,
+  getProjectName,
 } from './utils';
 
 
 export default function pull(rootFolder, targetPath, locale, raw=false) {
   try {
     const configPath = getConfigPath();
-    const localeappKey = fs.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
+    const projectName = getProjectName();
+    const localeappKey = JSON.parse(fs.readFileSync(configPath, 'utf8'))[projectName];
     return localeappPull(localeappKey).then(({ response, body }) => {
       const localesArray = ymlToJson(body);
       console.log(`Successfully pulled locales ${Object.keys(localesArray).join(', ')} from Localeapp`);
@@ -30,6 +32,6 @@ export default function pull(rootFolder, targetPath, locale, raw=false) {
     }).catch((err) => console.error(err));
   }
   catch (err) {
-    console.error('No localeapp project key found in! Please specify one with the init command');
+    console.error('No localeapp project key found! Please specify one with the init command');
   }
 }

@@ -33,7 +33,8 @@ function push(rootFolder, targetPath, locale, pushDefault) {
   }
   try {
     var configPath = (0, _utils.getConfigPath)();
-    var localeappKey = _fs2.default.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
+    var projectName = (0, _utils.getProjectName)();
+    var localeappKey = JSON.parse(_fs2.default.readFileSync(configPath, 'utf8'))[projectName];
     var filePath = targetPath + '/' + locale + '.yml';
     var data = _fs2.default.createReadStream(filePath);
     return (0, _utils.localeappPush)(localeappKey, data).then(function (_ref) {
@@ -45,6 +46,6 @@ function push(rootFolder, targetPath, locale, pushDefault) {
       return console.error(err);
     });
   } catch (err) {
-    console.log('No localeapp project key found in! Please specify one with the init command');
+    console.log('No localeapp project key found! Please specify one with the init command');
   }
 }

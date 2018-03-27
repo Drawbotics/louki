@@ -2,7 +2,7 @@ import fs from 'fs';
 import get from 'lodash/get';
 import path from 'path';
 
-import { localeappPush, getConfigPath } from './utils';
+import { localeappPush, getConfigPath, getProjectName } from './utils';
 import update from './update';
 
 
@@ -12,7 +12,8 @@ export default function push(rootFolder, targetPath, locale, pushDefault, raw=fa
   }
   try {
     const configPath = getConfigPath();
-    const localeappKey = fs.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
+    const projectName = getProjectName();
+    const localeappKey = JSON.parse(fs.readFileSync(configPath, 'utf8'))[projectName];
     const filePath = `${targetPath}/${locale}.yml`;
     const data = fs.createReadStream(filePath);
     return localeappPush(localeappKey, data).then(({ response, body }) => {
@@ -20,6 +21,6 @@ export default function push(rootFolder, targetPath, locale, pushDefault, raw=fa
     }).catch((err) => console.error(err));
   }
   catch (err) {
-    console.log('No localeapp project key found in! Please specify one with the init command');
+    console.log('No localeapp project key found! Please specify one with the init command');
   }
 }

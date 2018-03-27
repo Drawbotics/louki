@@ -17,7 +17,7 @@ program
 
 program
   .command('init')
-  .description('To initialise louki with the localeapp secret key. Required arguent: secret key.');
+  .description('To initialise louki with the localeapp secret key. Required argument: secret_key.');
 
 program
   .command('update')
@@ -43,12 +43,12 @@ program.parse(process.argv);
 
 if (typeof cmdValue === 'undefined') {
   console.error('no command given!');
-  process.exit(1);
+  process.exit();
 }
 
 else if (! ['update', 'push', 'pull', 'init'].includes(cmdValue)) {
   console.error('Command not supported or recognised');
-  process.exit(1);
+  process.exit();
 }
 else {
   if (typeof appCfg.config === 'undefined') {
@@ -63,15 +63,15 @@ else {
 
 
   if (cmdValue === 'init' && ! optionsValue) {
-    console.error('Localeapp key not specified');
-    process.exit(1);
+    console.error('Localeapp key not specified.');
+    process.exit();
   }
 
   if (typeof localeTarget === 'undefined'
     || typeof localeSource === 'undefined'
     || typeof defaultLocale === 'undefined') {
     console.error('Missing config options! Provide root, source, default');
-    process.exit(1);
+    process.exit();
   }
 
   var targetPath = rootPath + '/' + localeTarget;
