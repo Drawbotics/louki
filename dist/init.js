@@ -13,20 +13,31 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _utils = require('./utils');
 
-var configPath = _path2.default.resolve(__dirname, '../.config');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function init(key) {
   var value = 'LOCALEAPP_KEY="' + key + '"';
+  var configPath = (0, _utils.getConfigPath)(true);
   _fs2.default.open(configPath, 'w', function (err, fd) {
-    if (err) throw err;
-    _fs2.default.write(fd, value, function (err, written) {
-      if (err) {
-        console.error('Could not save key');
-        throw err;
-      }
-      console.log('Successfully saved localeapp key');
-    });
+    if (err) {
+      _fs2.default.writeFile(configPath, '', function (err) {
+        if (err) throw err;
+        writeConfig(fd, value);
+      });
+    } else {
+      writeConfig(fd, value);
+    }
+  });
+}
+
+function writeConfig(fd, value) {
+  _fs2.default.write(fd, value, function (err, written) {
+    if (err) {
+      console.error('Could not save key');
+      throw err;
+    }
+    console.log('Successfully saved localeapp key');
   });
 }

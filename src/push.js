@@ -2,11 +2,8 @@ import fs from 'fs';
 import get from 'lodash/get';
 import path from 'path';
 
-import { localeappPush } from './utils';
+import { localeappPush, getConfigPath } from './utils';
 import update from './update';
-
-
-const configPath = path.resolve(__dirname, '../.config');
 
 
 export default function push(rootFolder, targetPath, locale, pushDefault, raw=false) {
@@ -14,6 +11,7 @@ export default function push(rootFolder, targetPath, locale, pushDefault, raw=fa
     update(rootFolder, targetPath, locale); // only build if default locale is pushed
   }
   try {
+    const configPath = getConfigPath();
     const localeappKey = fs.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     const filePath = `${targetPath}/${locale}.yml`;
     const data = fs.createReadStream(filePath);

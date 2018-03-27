@@ -28,6 +28,11 @@ Object.keys(_conversion).forEach(function (key) {
     }
   });
 });
+exports.getConfigPath = getConfigPath;
+
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
 
 var _fromFolders2 = require('./from-folders');
 
@@ -41,3 +46,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.fromFolders = _fromFolders3.default;
 exports.toFolders = _toFolders3.default;
+function getConfigPath() {
+  var create = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+  var home = require('user-home');
+  var directory = home + '/.louki';
+  if (!_fs2.default.existsSync(directory) && create) {
+    _fs2.default.mkdirSync(directory);
+  }
+  return directory + '/config';
+}
