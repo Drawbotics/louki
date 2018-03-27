@@ -7,14 +7,13 @@ import {
   ymlToJson,
   jsonToYml,
   toFolders,
+  getConfigPath,
 } from './utils';
-
-
-const configPath = path.resolve(__dirname, '../.config');
 
 
 export default function pull(rootFolder, targetPath, locale, raw=false) {
   try {
+    const configPath = getConfigPath();
     const localeappKey = fs.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     return localeappPull(localeappKey).then(({ response, body }) => {
       const localesArray = ymlToJson(body);

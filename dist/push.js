@@ -25,8 +25,6 @@ var _update2 = _interopRequireDefault(_update);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var configPath = _path2.default.resolve(__dirname, '../.config');
-
 function push(rootFolder, targetPath, locale, pushDefault) {
   var raw = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
 
@@ -34,6 +32,7 @@ function push(rootFolder, targetPath, locale, pushDefault) {
     (0, _update2.default)(rootFolder, targetPath, locale); // only build if default locale is pushed
   }
   try {
+    var configPath = (0, _utils.getConfigPath)();
     var localeappKey = _fs2.default.readFileSync(configPath, 'utf8').split('=')[1].replace(/"/g, '');
     var filePath = targetPath + '/' + locale + '.yml';
     var data = _fs2.default.createReadStream(filePath);
