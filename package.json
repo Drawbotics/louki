@@ -1,6 +1,6 @@
 {
   "name": "louki",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Locale Organization Utility to manage locales",
   "main": "src/index.js",
   "repository": "https://github.com/Drawbotics/louki.git",
