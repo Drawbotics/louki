@@ -80,7 +80,7 @@ louki push
 louki pull
 ```
 
-Were you to install `louki` locally you will need to call `npm run louki update` or better, `yarn louki update`.
+Were you to install `louki` locally you will need to call `npx louki update` or better, `yarn louki update`.
 
 **NOTE:** when using options like the ones described below, you will need to include the `--` parameter to ensure the options are passed to Louki and not Yarn. E.g. `yarn louki pull -- --raw`.
 
