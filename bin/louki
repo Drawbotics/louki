@@ -61,7 +61,6 @@ else {
   var sourcePath = rootPath + '/' + localeSource;
 
   var extra = {
-    pushDefault: optionsValue == defaultLocale,
     watchFiles: program.watch,
   };
 
