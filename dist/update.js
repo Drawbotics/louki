@@ -14,12 +14,12 @@ var _utils = require('./utils');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function update(rootFolder, targetPath, locale) {
-  var finalTranslation = (0, _utils.fromFolders)(rootFolder, locale);
   try {
-    _fs2.default.writeFileSync(targetPath + '/' + locale + '.yml', finalTranslation); // file type is hardcoded for now
-    console.log('Updated target file ' + locale + '.yml');
+    var compiledLocale = _fs2.default.readFileSync(targetPath + '/' + locale + '.yml', 'utf8');
+    var updatedFolders = (0, _utils.toFolders)(rootFolder, compiledLocale, locale);
+    console.log('Folders updated');
+    return updatedFolders;
   } catch (err) {
     console.error(err);
   }
-  return finalTranslation;
 }

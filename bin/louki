@@ -8,7 +8,7 @@ var conf = {};
 var appCfg = require('rc')('louki', conf);
 
 program
-  .version('0.0.1')
+  .version('1.0.0')
   .arguments('<cmd> [options]')
   .action(function (cmd, options) {
     cmdValue = cmd ;

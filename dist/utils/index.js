@@ -5,18 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toFolders = exports.fromFolders = undefined;
 
-var _api = require('./api');
-
-Object.keys(_api).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function get() {
-      return _api[key];
-    }
-  });
-});
-
 var _conversion = require('./conversion');
 
 Object.keys(_conversion).forEach(function (key) {
@@ -28,16 +16,6 @@ Object.keys(_conversion).forEach(function (key) {
     }
   });
 });
-exports.getConfigPath = getConfigPath;
-exports.getProjectName = getProjectName;
-
-var _fs = require('fs');
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _path = require('path');
-
-var _path2 = _interopRequireDefault(_path);
 
 var _fromFolders2 = require('./from-folders');
 
@@ -51,23 +29,3 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.fromFolders = _fromFolders3.default;
 exports.toFolders = _toFolders3.default;
-function getConfigPath() {
-  var create = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-  var home = require('user-home');
-  var directory = home + '/.louki';
-  if (!_fs2.default.existsSync(directory) && create) {
-    _fs2.default.mkdirSync(directory);
-  }
-  return directory + '/config.json';
-}
-
-function getProjectName() {
-  var pathToPackage = _path2.default.resolve('package.json');
-  var name = JSON.parse(_fs2.default.readFileSync(pathToPackage, 'utf8')).name;
-  if (!name) {
-    console.log('Missing required "name" in package.json');
-    process.exit();
-  }
-  return name;
-}
