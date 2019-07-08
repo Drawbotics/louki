@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import louki from '../../src';
 
 
-describe('LOUKI EXAMPLE', () => {
+describe('commands', () => {
   describe('louki(command)', () => {
     const rootFolder = path.resolve(__dirname, '../mock/config/full/sections');
     const targetFolder = path.resolve(__dirname, '../mock/dist');

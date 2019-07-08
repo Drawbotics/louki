@@ -12,7 +12,7 @@ import build from './build';
 **/
 
 
-export default function louki(command, rootFolder, targetPath, option, extra) {
+export default function louki(command, rootFolder, targetPath, option, extra={}) {
   const { watchFiles } = extra;
   const defaultLocale = option;
   if (command === 'build') {
