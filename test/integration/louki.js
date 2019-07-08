@@ -13,19 +13,19 @@ describe('LOUKI EXAMPLE', () => {
     const targetFile = 'en-target';
     const desiredFile = `${targetFolder}/en-desired.yml`;
 
-    describe('louki(update, root, target)', () => {
+    describe('louki(build, root, target)', () => {
       let desiredTranslation;
 
       before(() => {
         desiredTranslation = fs.readFileSync(desiredFile, 'utf8');
       });
-      it('the update command should take the contents of the root folder and replace them in the dist', () => {
-        const targetTranslation = louki('update', rootFolder, targetFolder, targetFile);
+      it('the build command should take the contents of the root folder and replace them in the dist', () => {
+        const targetTranslation = louki('build', rootFolder, targetFolder, targetFile);
         expect(targetTranslation).to.equal(desiredTranslation);
       });
     });
 
-    describe('louki(pull, root, target)', () => {
+    describe('louki(update, root, target)', () => {
       let desiredManifest;
       let desiredQuick;
 
@@ -40,8 +40,8 @@ describe('LOUKI EXAMPLE', () => {
           "service": "Servizio %{ciao}"
         };
       });
-      it('the pull command should pull from localeapp, replace the contents of the dist folder and update the config files', () => {
-        const targetFolders = louki('pull', rootFolder, targetFolder, targetFile);
+      it('the update command should replace the contents of the dist folder and update the source (config) files', () => {
+        const targetFolders = louki('update', rootFolder, targetFolder, targetFile);
         const updatedManifest = get(targetFolders, 'manifest');
         const updatedQuick = get(targetFolders, 'order.quick-services.index');
         expect(updatedManifest).to.deep.equal(desiredManifest);

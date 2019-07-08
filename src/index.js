@@ -16,13 +16,13 @@ import init from './init';
 **/
 
 
-export default function louki(command, rootFolder, targetPath, option, extra) {
+export default function louki(command, rootFolder, targetPath, option, extra={}) {
   const { pushDefault, watchFiles, raw } = extra;
   const defaultLocale = option;
   if (command === 'init') {
     init(option);
   }
-  else if (command === 'update') {
+  else if (command === 'build') {
     if (watchFiles) {
       console.log('Louki watching for changes in root folder...');
       update(rootFolder, targetPath, defaultLocale); // run once
@@ -35,10 +35,7 @@ export default function louki(command, rootFolder, targetPath, option, extra) {
       return update(rootFolder, targetPath, defaultLocale);
     }
   }
-  else if (command === 'push') {
-    return push(rootFolder, targetPath, defaultLocale, pushDefault, raw);
-  }
-  else if (command === 'pull') {
+  else if (command === 'update') {
     return pull(rootFolder, targetPath, defaultLocale, raw);
   }
   else {

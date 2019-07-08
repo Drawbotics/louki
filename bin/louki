@@ -16,27 +16,16 @@ program
   });
 
 program
-  .command('init')
-  .description('To initialise louki with the localeapp secret key. Required argument: secret_key.');
+  .command('build')
+  .description('To build the compiled default locale from source');
 
 program
   .command('update')
-  .description('To update the compiled default locale (without pushing)');
+  .description('To update the source files from the default locale build file');
 
 program
-  .command('push')
-  .description('To push to localeapp using the bash command??');
+  .option('-w, --watch', 'Watch files (calls build on changes)');
 
-program
-  .command('pull')
-  .description('To pull from localeapp and update all files (compiled and src)');
-
-program
-  .option('-w, --watch', 'Watch files (calls update on changes)');
-
-
-program
-  .option('-r, --raw', 'Pull without rebuilding sources');
 
 program.parse(process.argv);
 
@@ -46,7 +35,7 @@ if (typeof cmdValue === 'undefined') {
   process.exit();
 }
 
-else if (! ['update', 'push', 'pull', 'init'].includes(cmdValue)) {
+else if (! ['update', 'build'].includes(cmdValue)) {
   console.error('Command not supported or recognised');
   process.exit();
 }
@@ -61,12 +50,6 @@ else {
   var localeSource = appCfg.source;
   var defaultLocale = appCfg.default;
 
-
-  if (cmdValue === 'init' && ! optionsValue) {
-    console.error('Localeapp key not specified.');
-    process.exit();
-  }
-
   if (typeof localeTarget === 'undefined'
     || typeof localeSource === 'undefined'
     || typeof defaultLocale === 'undefined') {
@@ -80,7 +63,6 @@ else {
   var extra = {
     pushDefault: optionsValue == defaultLocale,
     watchFiles: program.watch,
-    raw: program.raw,
   };
 
   louki(cmdValue, sourcePath, targetPath, optionsValue || defaultLocale, extra);
