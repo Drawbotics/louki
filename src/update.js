@@ -1,16 +1,16 @@
 import fs from 'fs';
 
-import { fromFolders } from './utils';
+import { toFolders } from './utils';
 
 
 export default function update(rootFolder, targetPath, locale) {
-  const finalTranslation = fromFolders(rootFolder, locale);
   try {
-    fs.writeFileSync(`${targetPath}/${locale}.yml`, finalTranslation);   // file type is hardcoded for now
-    console.log(`Updated target file ${locale}.yml`);
+    const compiledLocale = fs.readFileSync(`${targetPath}/${locale}.yml`, 'utf8');
+    const updatedFolders = toFolders(rootFolder, compiledLocale, locale);
+    console.log('Folders updated');
+    return updatedFolders;
   }
   catch (err) {
     console.error(err);
   }
-  return finalTranslation;
 }

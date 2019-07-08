@@ -16,6 +16,8 @@ en-target:
     zone: Zone
     highlight_area: Highlighted area
     user: null
+    viewer:
+      annotations: Annotation
   back_office:
     back_key_1: First key
     back_key_2: Second key
