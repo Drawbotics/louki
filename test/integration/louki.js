@@ -11,15 +11,15 @@ describe('commands', () => {
     const rootFolder = path.resolve(__dirname, '../mock/config/full/sections');
     const targetFolder = path.resolve(__dirname, '../mock/dist');
     const targetFile = 'en-target';
-    const desiredFile = `${targetFolder}/en-desired.yml`;
+    let desiredTranslation;
+
+    beforeEach(() => {
+      desiredTranslation = '';
+    });
 
     describe('louki(build, root, target)', () => {
-      let desiredTranslation;
-
-      before(() => {
-        desiredTranslation = fs.readFileSync(desiredFile, 'utf8');
-      });
       it('the build command should take the contents of the root folder and replace them in the dist', () => {
+        desiredTranslation = fs.readFileSync(`${targetFolder}/en-desired.yml`, 'utf8');
         const targetTranslation = louki('build', rootFolder, targetFolder, targetFile);
         expect(targetTranslation).to.equal(desiredTranslation);
       });

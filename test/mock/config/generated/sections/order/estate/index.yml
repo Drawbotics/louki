@@ -1,8 +1,8 @@
-items: The items are great
-id: Identification
-products:
-  visit3d: 3D Visit
-  interior: Interior 3D
 buttons: Buttons
 forever:
   a_lot: null
+id: Identification
+items: The items are great
+products:
+  interior: Interior 3D
+  visit3d: 3D Visit
