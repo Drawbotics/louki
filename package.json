@@ -25,12 +25,12 @@
     ]
   },
   "dependencies": {
+    "@nicmosc/js-yaml": "^0.1.0",
     "babel-polyfill": "^6.23.0",
     "commander": "^2.9.0",
     "directory-tree": "^1.2.0",
     "dotenv": "^4.0.0",
     "fs": "^0.0.1-security",
-    "js-yaml": "^3.13.1",
     "lodash": "^4.17.11",
     "node-watch": "^0.5.5",
     "rc": "^1.2.8",

@@ -1,8 +1,13 @@
-import yaml from 'js-yaml';
+import yaml from '@nicmosc/js-yaml';
 
 
-export function jsonToYml(json) {
-  return yaml.safeDump(json, { sortKeys: true, lineWidth: -1 });
+export function jsonToYml(json, format) {
+  return yaml.dump(json, {
+    sortKeys: true,
+    lineWidth: -1,
+    noCompatMode: true,
+    scalarQuoteStyle: format === undefined ? 'lokalise' : null,
+  });
 }
 
 
