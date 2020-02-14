@@ -1,18 +1,19 @@
 en:
+  meta:
+    meta_1: 'Our brand'
+    meta_2: 'Follow us'
+  password: 'Your password'
   topics:
     marketing:
+      feedback: 'Leave us some feedback!'
       title: Marketing
-      feedback: Leave us some feedback!
       user_action:
-        save: Save file
         cancel: Cancel
+        save: 'Save file'
     technology:
-      code: This is the code we use
-      installation: How to install our software
-    title: Some of the topics we cover
-  meta:
-    meta_1: Our brand
-    meta_2: Follow us
-  username: Your username
-  password: Your password
-  welcome: Welcome aboard!
+      code: 'This is the code we use'
+      installation: 'How to install our software'
+    title: 'Some of the topics we cover'
+  username: 'Your username'
+  welcome: 'Welcome aboard!'
+  with_apostrophe: 'Some text''s with stuff''s'
