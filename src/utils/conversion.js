@@ -2,7 +2,7 @@ import yaml from 'js-yaml';
 
 
 export function jsonToYml(json) {
-  return yaml.safeDump(json, { sortKeys: true });
+  return yaml.safeDump(json, { sortKeys: true, lineWidth: -1 });
 }
 
 
