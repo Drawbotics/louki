@@ -17,3 +17,5 @@ en:
   username: 'Your username'
   welcome: 'Welcome aboard!'
   with_apostrophe: 'Some text''s with stuff''s'
+  with_chars: '%{sdf} ${sdfsf} sdfsdf'
+  with_chars_2: '%{sdf}${sdfsf}'
