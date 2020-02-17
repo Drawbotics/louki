@@ -10,6 +10,10 @@ en:
       user_action:
         cancel: Cancel
         save: 'Save file'
+    plurals:
+      zero: Zero
+      one: One
+      many: Manies
     technology:
       code: 'This is the code we use'
       installation: 'How to install our software'
