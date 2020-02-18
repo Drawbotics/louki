@@ -8,6 +8,9 @@ en:
     detailed: 'Over an expected total of %{total}'
     title: 'Revenue from optioned units'
   password: 'Your password'
+  style_options_label: 'Great, let’s continue - Choose an option below'
+  style_options:
+    feelingLucky: 'Looking for ideas'
   topics:
     item_not_destroyed: Something
     item_not_loaded: Something
@@ -31,6 +34,12 @@ en:
     technology:
       code: 'This is the code we use'
       installation: 'How to install our software'
+      production_tab:
+        description: 'Click on "Production" to see your items in more detail.'
+      production_table:
+        description: 'This list contains all the products you ordered for this project.'
+        extra_description: 'For each item you''ll be able to see its status, estimated delivery date, required actions etc.'
+        title: 'Production table'
       units:
         zero: ''
         one: '%{count} unit'

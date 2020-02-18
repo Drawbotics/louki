@@ -15,3 +15,6 @@ option_revenue:
   detailed: 'Over an expected total of %{total}'
   title: Revenue from optioned units
 'true': 1
+style_options_label: 'Great, let’s continue - Choose an option below'
+style_options:
+  feelingLucky: 'Looking for ideas'

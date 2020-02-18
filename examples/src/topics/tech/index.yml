@@ -6,3 +6,9 @@ units:
   many: ''
   other: '%{count} units'
 units_title: Units
+production_tab:
+  description: 'Click on "Production" to see your items in more detail.'
+production_table:
+  description: 'This list contains all the products you ordered for this project.'
+  extra_description: 'For each item you''ll be able to see its status, estimated delivery date, required actions etc.'
+  title: 'Production table'
