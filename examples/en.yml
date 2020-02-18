@@ -4,6 +4,10 @@ en:
     meta_2: 'Follow us'
   password: 'Your password'
   topics:
+    item_not_destroyed: Something
+    item_not_loaded: Something
+    item:
+      not_enough_credits: 'You don''t have enough credits to reopen the project.'
     marketing:
       feedback: 'Leave us some feedback!'
       title: Marketing
@@ -14,6 +18,11 @@ en:
       zero: Zero
       one: One
       many: Manies
+    project: Project
+    project_estate: Estate
+    project_item: 'Project item'
+    project_item_1: First
+    project_item_2: Second
     technology:
       code: 'This is the code we use'
       installation: 'How to install our software'
