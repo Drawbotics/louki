@@ -8,16 +8,15 @@ function lokaliseSort(a, b, object) {
   const aValue = object[a];
   const bValue = object[b];
 
-  if (pluralForms.includes(a)) {  // handle plural forms
+  if (pluralForms.includes(a) && pluralForms.includes(b)) {  // handle plural forms
     return pluralForms.indexOf(a) - pluralForms.indexOf(b);
   }
-  if (b.startsWith(a) && b.split('_')[0] === a
-    && (typeof bValue !== 'string' || typeof aValue !== 'string')) {  // handle e.g. project vs project_item
-    console.log(a, typeof aValue,b,  typeof bValue);
+  if (b.startsWith(a)
+    && typeof aValue !== 'string'
+    && ! Object.keys(aValue).every((k) => pluralForms.includes(k))) {  // handle e.g. project vs project_item
     return 1;
   }
-  if (a.startsWith(b) && a.split('_')[0] === b
-    && (typeof bValue !== 'string' || typeof aValue !== 'string')) {  // handle e.g. project vs project_item
+  if (a.startsWith(b) && (typeof bValue !== 'string' && typeof aValue !== 'string')) {  // handle e.g. project vs project_item
     return -1;
   }
   return a.localeCompare(b);
@@ -28,7 +27,7 @@ export function jsonToYml(json, format) {
   return yaml.dump(json, {
     sortKeys: lokaliseSort,
     lineWidth: -1,
-    noCompatMode: true,
+    // noCompatMode: true,
     scalarQuoteStyle: format === undefined ? 'lokalise' : null,
   });
 }

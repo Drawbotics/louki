@@ -3,9 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 exports.jsonToYml = jsonToYml;
 exports.ymlToJson = ymlToJson;
 
@@ -21,16 +18,17 @@ function lokaliseSort(a, b, object) {
   var aValue = object[a];
   var bValue = object[b];
 
-  if (pluralForms.includes(a)) {
+  if (pluralForms.includes(a) && pluralForms.includes(b)) {
     // handle plural forms
     return pluralForms.indexOf(a) - pluralForms.indexOf(b);
   }
-  if (b.startsWith(a) && b.split('_')[0] === a && (typeof bValue !== 'string' || typeof aValue !== 'string')) {
+  if (b.startsWith(a) && typeof aValue !== 'string' && !Object.keys(aValue).every(function (k) {
+    return pluralForms.includes(k);
+  })) {
     // handle e.g. project vs project_item
-    console.log(a, typeof aValue === 'undefined' ? 'undefined' : _typeof(aValue), b, typeof bValue === 'undefined' ? 'undefined' : _typeof(bValue));
     return 1;
   }
-  if (a.startsWith(b) && a.split('_')[0] === b && (typeof bValue !== 'string' || typeof aValue !== 'string')) {
+  if (a.startsWith(b) && typeof bValue !== 'string' && typeof aValue !== 'string') {
     // handle e.g. project vs project_item
     return -1;
   }
@@ -41,7 +39,7 @@ function jsonToYml(json, format) {
   return _jsYaml2.default.dump(json, {
     sortKeys: lokaliseSort,
     lineWidth: -1,
-    noCompatMode: true,
+    // noCompatMode: true,
     scalarQuoteStyle: format === undefined ? 'lokalise' : null
   });
 }

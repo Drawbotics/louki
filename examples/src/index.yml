@@ -4,6 +4,14 @@ meta:
 password: Your password
 username: Your username
 welcome: Welcome aboard!
+with_other_chars: Some-thing
 with_apostrophe: Some text's with stuff's
 with_chars: '%{sdf} ${sdfsf} sdfsdf'
 with_chars_2: '%{sdf}${sdfsf}'
+yes: Yes
+no: No
+option: Option
+option_revenue:
+  detailed: 'Over an expected total of %{total}'
+  title: Revenue from optioned units
+'true': 1

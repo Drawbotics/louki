@@ -2,6 +2,11 @@ en:
   meta:
     meta_1: 'Our brand'
     meta_2: 'Follow us'
+  'no': 'No'
+  option: Option
+  option_revenue:
+    detailed: 'Over an expected total of %{total}'
+    title: 'Revenue from optioned units'
   password: 'Your password'
   topics:
     item_not_destroyed: Something
@@ -26,9 +31,18 @@ en:
     technology:
       code: 'This is the code we use'
       installation: 'How to install our software'
+      units:
+        zero: ''
+        one: '%{count} unit'
+        many: ''
+        other: '%{count} units'
+      units_title: Units
     title: 'Some of the topics we cover'
+  'true': 1
   username: 'Your username'
   welcome: 'Welcome aboard!'
   with_apostrophe: 'Some text''s with stuff''s'
   with_chars: '%{sdf} ${sdfsf} sdfsdf'
   with_chars_2: '%{sdf}${sdfsf}'
+  with_other_chars: Some-thing
+  'yes': 'Yes'
