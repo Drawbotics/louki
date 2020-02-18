@@ -66,14 +66,14 @@ function parseTranslation(json, rootFolder) {
       const name = file.name.split('.')[0];
       const content = json[name];
       if (content) {
-        fs.writeFileSync(`${rootFolder}/${name}.yml`, jsonToYml(content));
+        fs.writeFileSync(`${rootFolder}/${name}.yml`, jsonToYml(content, null));
         json = omit(json, name);
       }
     });
   }
 
   // now replace the rest in the manifest
-  fs.writeFileSync(`${rootFolder}/index.yml`, jsonToYml(json));
+  fs.writeFileSync(`${rootFolder}/index.yml`, jsonToYml(json, null));
 
   // add new contents of the yml (not parsed)
   Object.assign(final, {

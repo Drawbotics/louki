@@ -1,6 +1,20 @@
 meta:
   meta_1: Our brand
   meta_2: Follow us
-username: Your username
 password: Your password
+username: Your username
 welcome: Welcome aboard!
+with_other_chars: Some-thing
+with_apostrophe: Some text's with stuff's
+with_chars: '%{sdf} ${sdfsf} sdfsdf'
+with_chars_2: '%{sdf}${sdfsf}'
+yes: Yes
+no: No
+option: Option
+option_revenue:
+  detailed: 'Over an expected total of %{total}'
+  title: Revenue from optioned units
+'true': 1
+style_options_label: 'Great, let’s continue - Choose an option below'
+style_options:
+  feelingLucky: 'Looking for ideas'

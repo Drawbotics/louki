@@ -1,1 +1,14 @@
 title: Some of the topics we cover
+plurals:
+  one: One
+  zero: Zero
+  many: Manies
+project_item: Project item
+project: Project
+project_estate: Estate
+project_item_1: First
+project_item_2: Second
+item_not_loaded: Something
+item_not_destroyed: Something
+item:
+  not_enough_credits: 'You don''t have enough credits to reopen the project.' 

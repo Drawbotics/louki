@@ -79,14 +79,14 @@ function parseTranslation(json, rootFolder) {
       var name = file.name.split('.')[0];
       var content = json[name];
       if (content) {
-        _fs2.default.writeFileSync(rootFolder + '/' + name + '.yml', (0, _conversion.jsonToYml)(content));
+        _fs2.default.writeFileSync(rootFolder + '/' + name + '.yml', (0, _conversion.jsonToYml)(content, null));
         json = (0, _lodash.omit)(json, name);
       }
     });
   }
 
   // now replace the rest in the manifest
-  _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _conversion.jsonToYml)(json));
+  _fs2.default.writeFileSync(rootFolder + '/index.yml', (0, _conversion.jsonToYml)(json, null));
 
   // add new contents of the yml (not parsed)
   Object.assign(final, {

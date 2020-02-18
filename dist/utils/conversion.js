@@ -6,14 +6,42 @@ Object.defineProperty(exports, "__esModule", {
 exports.jsonToYml = jsonToYml;
 exports.ymlToJson = ymlToJson;
 
-var _jsYaml = require('js-yaml');
+var _jsYaml = require('@nicmosc/js-yaml');
 
 var _jsYaml2 = _interopRequireDefault(_jsYaml);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function jsonToYml(json) {
-  return _jsYaml2.default.safeDump(json);
+var pluralForms = ['zero', 'one', 'two', 'few', 'many', 'other'];
+
+function lokaliseSort(a, b, object) {
+  var aValue = object[a];
+  var bValue = object[b];
+
+  if (pluralForms.includes(a) && pluralForms.includes(b)) {
+    // handle plural forms
+    return pluralForms.indexOf(a) - pluralForms.indexOf(b);
+  }
+  if (b.startsWith(a) && b.split(a)[0] === '' && b.split(a)[1].includes('_') && typeof aValue !== 'string' && !Object.keys(aValue).every(function (k) {
+    return pluralForms.includes(k);
+  })) {
+    // handle e.g. project vs project_item
+    return 1;
+  }
+  if (a.startsWith(b) && a.split(b)[0] === '' && a.split(b)[1].includes('_') && typeof bValue !== 'string' && typeof aValue !== 'string') {
+    // handle e.g. project vs project_item
+    return -1;
+  }
+  return a.localeCompare(b);
+}
+
+function jsonToYml(json, format) {
+  return _jsYaml2.default.dump(json, {
+    sortKeys: lokaliseSort,
+    lineWidth: -1,
+    // noCompatMode: true,
+    scalarQuoteStyle: format === undefined ? 'lokalise' : null
+  });
 }
 
 function ymlToJson(yml) {

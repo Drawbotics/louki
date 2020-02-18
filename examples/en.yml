@@ -1,18 +1,57 @@
 en:
-  topics:
-    title: Some of the topics we cover
-    marketing:
-      title: Marketing
-      feedback: Leave us some feedback!
-      user_action:
-        save: Save file
-        cancel: Cancel
-    tech:
-      code: This is the code we use
-      installation: How to install our software
   meta:
-    meta_1: Our brand
-    meta_2: Follow us
-  username: Your username
-  password: Your password
-  welcome: Welcome aboard!
+    meta_1: 'Our brand'
+    meta_2: 'Follow us'
+  'no': 'No'
+  option: Option
+  option_revenue:
+    detailed: 'Over an expected total of %{total}'
+    title: 'Revenue from optioned units'
+  password: 'Your password'
+  style_options_label: 'Great, let’s continue - Choose an option below'
+  style_options:
+    feelingLucky: 'Looking for ideas'
+  topics:
+    item_not_destroyed: Something
+    item_not_loaded: Something
+    item:
+      not_enough_credits: 'You don''t have enough credits to reopen the project.'
+    marketing:
+      feedback: 'Leave us some feedback!'
+      title: Marketing
+      user_action:
+        cancel: Cancel
+        save: 'Save file'
+    plurals:
+      zero: Zero
+      one: One
+      many: Manies
+    project: Project
+    project_estate: Estate
+    project_item: 'Project item'
+    project_item_1: First
+    project_item_2: Second
+    technology:
+      code: 'This is the code we use'
+      installation: 'How to install our software'
+      production_tab:
+        description: 'Click on "Production" to see your items in more detail.'
+      production_table:
+        description: 'This list contains all the products you ordered for this project.'
+        extra_description: 'For each item you''ll be able to see its status, estimated delivery date, required actions etc.'
+        title: 'Production table'
+      units:
+        zero: ''
+        one: '%{count} unit'
+        many: ''
+        other: '%{count} units'
+      units_title: Units
+    title: 'Some of the topics we cover'
+  'true': 1
+  username: 'Your username'
+  welcome: 'Welcome aboard!'
+  with_apostrophe: 'Some text''s with stuff''s'
+  with_chars: '%{sdf} ${sdfsf} sdfsdf'
+  with_chars_2: '%{sdf}${sdfsf}'
+  with_other_chars: Some-thing
+  'yes': 'Yes'
